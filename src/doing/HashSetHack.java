@@ -10,7 +10,7 @@ public class HashSetHack implements HackedConstructor {
     @Override
     public HashSet<?> HashSetter() {
         HashSet<?> hashSet = null;
-        Constructor<?> constructor = null;
+        Constructor<?> constructor;
         try {
             Class<?> clazz = Class.forName("java.util.HashSet");
             constructor = clazz.getDeclaredConstructor(int.class, float.class, boolean.class);
