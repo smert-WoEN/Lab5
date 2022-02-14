@@ -2,6 +2,7 @@ package doing.workWithFiles;
 
 import Super.WriteToFile;
 import com.sun.istack.internal.NotNull;
+import doing.FileExceptions;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -12,21 +13,26 @@ public class FileWrite implements WriteToFile {
 
     @Override
     public void fileWrite(HashSet<HashSet<String>> hashSet, String nameVariable) {
+        @NotNull
         String variable = System.getenv(nameVariable);
         System.out.println(variable);
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(variable))) {
-            for (HashSet<String> hashSet1: hashSet){
-                int lenHashSet1 = hashSet1.size();
-                int count = 0;
-                System.out.println(lenHashSet1);
-                for (String string: hashSet1) {
-                    count += 1;
-                    writer.write(string + ((count == lenHashSet1) ? " " : ", "));
+        if (variable == null) {
+            throw new FileExceptions(nameVariable + " not found, check your system parameters.");
+        } else {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(variable))) {
+                for (HashSet<String> hashSet1 : hashSet) {
+                    int lenHashSet1 = hashSet1.size();
+                    int count = 0;
+                    System.out.println(lenHashSet1);
+                    for (String string : hashSet1) {
+                        count += 1;
+                        writer.write(string + ((count == lenHashSet1) ? " " : ", "));
+                    }
+                    writer.write("\n");
                 }
-                writer.write("\n");
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }
