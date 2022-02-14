@@ -20,8 +20,12 @@ public class Main {
         System.out.println(ntw);
         name.add((HashSet<String>) ntw.clone());
         System.out.println(name);
-        fileWrite.fileWrite(name, "JavaOut");
-        System.out.println(name.getClass().getName());
+        try {
+            fileWrite.fileWrite(name, "JavaOut");
+        } catch (RuntimeException e){
+            System.err.println(e.getMessage());
+        }
+        //System.out.println(name.getClass().getName());
 
     }
 }

@@ -1,7 +1,6 @@
 package doing.workWithFiles;
 
 import Super.WriteToFile;
-import com.sun.istack.internal.NotNull;
 import doing.FileExceptions;
 
 import java.io.BufferedWriter;
@@ -13,11 +12,10 @@ public class FileWrite implements WriteToFile {
 
     @Override
     public void fileWrite(HashSet<HashSet<String>> hashSet, String nameVariable) {
-        @NotNull
         String variable = System.getenv(nameVariable);
         System.out.println(variable);
         if (variable == null) {
-            throw new FileExceptions(nameVariable + " not found, check your system parameters.");
+            throw new FileExceptions(nameVariable);
         } else {
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(variable))) {
                 for (HashSet<String> hashSet1 : hashSet) {

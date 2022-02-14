@@ -6,7 +6,7 @@ public class FileExceptions extends IllegalArgumentException{
     }
 
     public FileExceptions(String message) {
-        super(message);
+        super(message  + " not found, add path parameter and restart application");
     }
 
     public FileExceptions(String errorMessage, Throwable err) {
