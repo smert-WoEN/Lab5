@@ -4,5 +4,5 @@ import java.io.Console
 import javax.swing.text.StyledEditorKit
 
 interface Coordinates {
-    fun getCoordinates(csv: Boolean) : String
+    fun getCoordinates(csv: Boolean = false) : String
 }
