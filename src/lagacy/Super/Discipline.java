@@ -1,6 +1,6 @@
-package Super;
+package lagacy.Super;
 
 public interface Discipline {
     void setDisciplines();
-    String getDisciplines();
+    String getDisciplinesCSV();
 }

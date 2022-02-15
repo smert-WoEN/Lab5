@@ -1,9 +1,9 @@
-package doing.mainFiles;
+package lagacy.doing.mainFiles;
 
 import java.io.PrintStream;
 import java.util.Scanner;
 
-public class Discipline implements Super.Discipline {
+public class Discipline implements lagacy.Super.Discipline {
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Long lectureHours; //Поле может быть null
     private int practiceHours;
@@ -78,7 +78,7 @@ public class Discipline implements Super.Discipline {
     }
 
     @Override
-    public String getDisciplines() {
+    public String getDisciplinesCSV() {
         return name + ", " + lectureHours + ", " + practiceHours + ", " + selfStudyHours + ", " + labsCount;
     }
 }

@@ -1,9 +1,9 @@
-package doing.mainFiles;
+package lagacy.doing.mainFiles;
 
 import java.io.PrintStream;
 import java.util.Scanner;
 
-public class Coordinates implements Super.Coordinates {
+public class Coordinates implements lagacy.Super.Coordinates {
     private int x; //Значение поля должно быть больше -497
     private double y; //Максимальное значение поля: 268
     private final Scanner scanner;
@@ -32,7 +32,7 @@ public class Coordinates implements Super.Coordinates {
     }
 
     @Override
-    public String getCoordinates() {
+    public String getCoordinatesCSV() {
         return x + ", " + y;
     }
 }

@@ -1,6 +1,6 @@
-package Super;
+package lagacy.Super;
 
 public interface Coordinates {
     void setCoordinates();
-    String getCoordinates();
+    String getCoordinatesCSV();
 }

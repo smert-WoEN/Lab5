@@ -1,7 +1,7 @@
-package Super;
+package lagacy.Super;
 
-import doing.HashSetHack;
-import doing.mainFiles.LabWork;
+import lagacy.doing.HashSetHack;
+import lagacy.doing.mainFiles.LabWork;
 
 import java.util.HashSet;
 

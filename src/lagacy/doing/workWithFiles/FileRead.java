@@ -1,32 +1,25 @@
-package doing.workWithFiles;
+package lagacy.doing.workWithFiles;
 
-import Super.WriteToFile;
+import lagacy.Super.ReadFromFile;
+import lagacy.doing.HashSetHack;
+import lagacy.doing.mainFiles.LabWork;
 
-import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashSet;
 
-public class FileWrite implements WriteToFile {
-
+public class FileRead implements ReadFromFile {
     @Override
-    public void fileWrite(HashSet<HashSet<String>> hashSet, String nameVariable) {
+    public HashSet<LabWork> fileRead(HashSetHack hashSetHack, String nameVariable) {
         String variable = System.getenv(nameVariable);
+        @SuppressWarnings("unchecked")
+        HashSet<LabWork> hashSet = (HashSet<LabWork>) hashSetHack.HashSetter();
         if (variable == null) {
             throw new IllegalArgumentException("Can't find path \"" + nameVariable + "\".");
         } else {
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(variable))) {
-                for (HashSet<String> hashSet1 : hashSet) {
-                    int lenHashSet1 = hashSet1.size();
-                    int count = 0;
-                    System.out.println(lenHashSet1);
-                    for (String string : hashSet1) {
-                        count += 1;
-                        writer.write(string + ((count == lenHashSet1) ? " " : ", "));
-                    }
-                    writer.write("\n");
-                }
+            try (FileReader fileReader = new FileReader(variable)){
+
             } catch (FileNotFoundException e) {
                 throw new IllegalArgumentException("Can't find file in path \"" + nameVariable + "\".");
             } catch (SecurityException e) {
@@ -35,5 +28,6 @@ public class FileWrite implements WriteToFile {
                 throw new IllegalArgumentException("Error occurred accessing file in path \"" + nameVariable + "\".");
             }
         }
+        return hashSet;
     }
 }

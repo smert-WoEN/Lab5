@@ -1,25 +1,26 @@
-package doing.workWithFiles;
+package lagacy.doing.workWithFiles;
 
-import Super.ReadFromFile;
-import doing.HashSetHack;
-import doing.mainFiles.LabWork;
+import lagacy.Super.WriteToFile;
+import lagacy.Super.LabWork;
 
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashSet;
 
-public class FileRead implements ReadFromFile {
+public class FileWrite implements WriteToFile {
+
     @Override
-    public HashSet<LabWork> fileRead(HashSetHack hashSetHack, String nameVariable) {
+    public void fileWrite(HashSet<LabWork> hashSet, String nameVariable) {
         String variable = System.getenv(nameVariable);
-        @SuppressWarnings("unchecked")
-        HashSet<LabWork> hashSet = (HashSet<LabWork>) hashSetHack.HashSetter();
         if (variable == null) {
             throw new IllegalArgumentException("Can't find path \"" + nameVariable + "\".");
         } else {
-            try (FileReader fileReader = new FileReader(variable)){
-
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(variable))) {
+                for (LabWork labWork : hashSet) {
+                    writer.write(labWork.getLabStringCSV() + "\n");
+                }
             } catch (FileNotFoundException e) {
                 throw new IllegalArgumentException("Can't find file in path \"" + nameVariable + "\".");
             } catch (SecurityException e) {
@@ -28,6 +29,5 @@ public class FileRead implements ReadFromFile {
                 throw new IllegalArgumentException("Error occurred accessing file in path \"" + nameVariable + "\".");
             }
         }
-        return hashSet;
     }
 }

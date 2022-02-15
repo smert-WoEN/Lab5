@@ -1,6 +1,6 @@
-package doing;
+package lagacy.doing;
 
-import Super.HackedConstructor;
+import lagacy.Super.HackedConstructor;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
