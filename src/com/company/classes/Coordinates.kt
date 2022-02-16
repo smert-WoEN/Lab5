@@ -6,8 +6,8 @@ import kotlin.properties.Delegates
 
 class Coordinates : com.company.superclasses.Coordinates {
 
-    private var x by Delegates.notNull<Int>()
-    private var y by Delegates.notNull<Double>()
+    override var x by Delegates.notNull<Int>()
+    override var y by Delegates.notNull<Double>()
 
 
     constructor(fromString: String) {
@@ -18,13 +18,18 @@ class Coordinates : com.company.superclasses.Coordinates {
             throw IllegalArgumentException("Error in argument: " + e.message + ".")
         }
         try {
-            if (arguments.size > 1) {
-               if (arguments[0].toInt() > -497 && arguments[1].toDouble() < 268.0) {
-                   this.x = arguments[0].toInt()
-                   this.y = arguments[1].toDouble()
-               }
+            if (arguments[0].toInt() > -497 && arguments[1].toDouble() < 268.0) {
+                this.x = arguments[0].toInt()
+                this.y = arguments[1].toDouble()
             }
-        } catch (e: NumberFormatException) {
+            else {
+                throw IllegalArgumentException("Coordinates out from range. Try again")
+            }
+        }
+        catch (e: ArrayIndexOutOfBoundsException) {
+            throw IllegalArgumentException("Can't parse Coordinates from \"" + fromString + "\": " + e.message + ".")
+        }
+        catch (e: NumberFormatException) {
             throw IllegalArgumentException("Can't parse Coordinates from \"" + fromString + "\": " + e.message + ".")
         }
     }

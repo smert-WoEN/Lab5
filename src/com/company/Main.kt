@@ -6,13 +6,22 @@ import com.company.classes.Coordinates
 
 fun main() {
     val discipline = Discipline()
-    print("input coordinates: ")
+    lateinit var coordinates: Coordinates
+    var run = true
+    do {
+        try {
+            print("input coordinates: ")
+            coordinates = Coordinates(readLine().toString())
+            run = false
+        } catch (e: IllegalArgumentException) {
+            println(e.message)
+        }
+    } while (run)
     try {
-        val coordinates = Coordinates(readLine().toString())
         println(coordinates.getCoordinates())
     } catch (e: IllegalArgumentException) {
         println(e.message)
     }
 
-
+    
 }

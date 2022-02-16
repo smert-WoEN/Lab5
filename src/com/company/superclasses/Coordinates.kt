@@ -1,8 +1,10 @@
 package com.company.superclasses
 
-import java.io.Console
-import javax.swing.text.StyledEditorKit
+import kotlin.properties.Delegates
+
 
 interface Coordinates {
+    var x: Int
+    var y: Double
     fun getCoordinates(csv: Boolean = false) : String
 }
