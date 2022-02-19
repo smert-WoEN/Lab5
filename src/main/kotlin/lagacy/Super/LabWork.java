@@ -1,4 +1,5 @@
 package lagacy.Super;
+@Deprecated
 
 public interface LabWork {
     String getLabStringCSV();

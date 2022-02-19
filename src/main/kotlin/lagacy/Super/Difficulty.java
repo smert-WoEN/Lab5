@@ -1,4 +1,5 @@
 package lagacy.Super;
+@Deprecated
 
 public enum Difficulty {
     VERY_EASY("VERY_EASY"),

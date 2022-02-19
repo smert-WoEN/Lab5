@@ -2,6 +2,7 @@ package lagacy.doing.mainFiles;
 
 import java.io.PrintStream;
 import java.util.Scanner;
+@Deprecated
 
 public class Discipline implements lagacy.Super.Discipline {
     private String name; //Поле не может быть null, Строка не может быть пустой
