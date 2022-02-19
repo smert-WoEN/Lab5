@@ -12,10 +12,10 @@ class Discipline : Discipline {
     override var labsCount by Delegates.notNull<Int>()
     private lateinit var arguments: Array<String>
 
-    constructor(argument: String) {
+    constructor(csvString: String) {
         val arguments: Array<String>
         try {
-            arguments = argument.split(" ", limit = 5).toTypedArray()
+            arguments = csvString.split(",", limit = 5).toTypedArray()
         } catch (e: PatternSyntaxException) {
             throw IllegalArgumentException("Error in argument: " + e.message + ".")
         }

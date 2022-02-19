@@ -33,11 +33,12 @@ class Coordinates : com.company.superclasses.Coordinates {
      * Coordinates from string constructor
      *
      * @param fromString string to parse from
+     * @param csv boolean csv type string or not
      * @throws IllegalArgumentException if string is invalid
      */
-    constructor(fromString: String) {
+    constructor(fromString: String, csv: Boolean = false) {
         val arguments: Array<String> = try {
-             fromString.split(" ", limit = 2).toTypedArray()
+             fromString.split(if (csv) "," else " ", limit = 2).toTypedArray()
         } catch (e: PatternSyntaxException) {
             throw IllegalArgumentException("Error in argument: " + e.message + ".")
         }
@@ -65,8 +66,13 @@ class Coordinates : com.company.superclasses.Coordinates {
      * @param y y coordinate
      */
     constructor(x: Int, y: Double) {
-        this.x = x
-        this.y = y
+        if (x > -497 && y < 268.0) {
+            this.x = x
+            this.y = y
+        }
+        else {
+            throw IllegalArgumentException("Coordinates out from range.")
+        }
     }
     /**
      * Coordinates getter
