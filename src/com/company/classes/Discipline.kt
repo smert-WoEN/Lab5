@@ -1,8 +1,6 @@
 package com.company.classes
 
 import com.company.superclasses.Discipline
-import java.io.PrintStream
-import java.util.*
 import java.util.regex.PatternSyntaxException
 import kotlin.properties.Delegates
 
@@ -23,7 +21,6 @@ class Discipline : Discipline {
         }
         try {
             this.arguments = arguments
-            setName(arguments[0])
         } catch (e: NullPointerException) {
             throw IllegalArgumentException("Error in argument: " + e.message + ".")
         }
@@ -34,18 +31,12 @@ class Discipline : Discipline {
         this.name = name
     }
 
+    constructor(){
+
+    }
     override fun getDiscipline(cvs: Boolean): String {
         TODO("Not yet implemented")
     }
 
-
-    private fun setName(string: String) {
-        if (string.isNotEmpty()) {
-            this.name = string
-        }
-        else {
-            throw IllegalArgumentException("Empty string, try again")
-        }
-    }
 
 }

@@ -5,7 +5,7 @@ import com.company.classes.Coordinates
 
 
 fun main() {
-    val discipline = Discipline()
+    var discipline = Discipline()
     lateinit var coordinates: Coordinates
     var run = true
     do {

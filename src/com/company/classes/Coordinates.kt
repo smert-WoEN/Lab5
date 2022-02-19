@@ -5,15 +5,39 @@ import kotlin.NumberFormatException
 import kotlin.properties.Delegates
 
 class Coordinates : com.company.superclasses.Coordinates {
-
+    /**
+     * Gets x coordinate
+     *
+     * @return x coordinate
+     */
+    /**
+     * Sets x coordinate
+     *
+     * @param x new x coordinate
+     */
     override var x by Delegates.notNull<Int>()
+
+    /**
+     * Sets x coordinate
+     *
+     * @param y new x coordinate
+     */
+    /**
+     * Gets y coordinate
+     *
+     * @return y coordinate
+     */
     override var y by Delegates.notNull<Double>()
 
-
+    /**
+     * Coordinates from string constructor
+     *
+     * @param fromString string to parse from
+     * @throws IllegalArgumentException if string is invalid
+     */
     constructor(fromString: String) {
-        val arguments: Array<String>
-        try {
-            arguments = fromString.split(" ", limit = 2).toTypedArray()
+        val arguments: Array<String> = try {
+             fromString.split(" ", limit = 2).toTypedArray()
         } catch (e: PatternSyntaxException) {
             throw IllegalArgumentException("Error in argument: " + e.message + ".")
         }
@@ -34,11 +58,22 @@ class Coordinates : com.company.superclasses.Coordinates {
         }
     }
 
+    /**
+     * Coordinates constructor
+     *
+     * @param x x coordinate
+     * @param y y coordinate
+     */
     constructor(x: Int, y: Double) {
         this.x = x
         this.y = y
     }
-
+    /**
+     * Coordinates getter
+     *
+     * @param csv return string in csv type
+     * @throws IllegalArgumentException if coordinates don't set
+     */
     override fun getCoordinates(csv: Boolean): String {
         var string: String = ""
         try {
