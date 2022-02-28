@@ -1,10 +1,10 @@
-package com.company.classes
+package legacy.company.classes
 
 import java.util.regex.PatternSyntaxException
 import kotlin.NumberFormatException
 import kotlin.properties.Delegates
 
-class Coordinates : com.company.superclasses.Coordinates {
+class Coordinates : legacy.company.superclasses.Coordinates {
     /**
      * Gets x coordinate
      *

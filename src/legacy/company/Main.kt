@@ -1,7 +1,7 @@
-package com.company
+package legacy.company
 
-import com.company.classes.Discipline
-import com.company.classes.Coordinates
+import legacy.company.classes.Discipline
+import legacy.company.classes.Coordinates
 
 
 fun main() {

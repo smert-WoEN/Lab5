@@ -1,6 +1,4 @@
-package com.company.superclasses
-
-import kotlin.properties.Delegates
+package legacy.company.superclasses
 
 
 interface Coordinates {

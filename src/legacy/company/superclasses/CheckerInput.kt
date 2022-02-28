@@ -1,4 +1,4 @@
-package com.company.superclasses
+package legacy.company.superclasses
 
 import java.io.PrintStream
 import java.util.*

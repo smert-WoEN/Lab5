@@ -1,6 +1,6 @@
-package com.company.classes
+package legacy.company.classes
 
-import com.company.superclasses.Discipline
+import legacy.company.superclasses.Discipline
 import java.util.regex.PatternSyntaxException
 import kotlin.properties.Delegates
 

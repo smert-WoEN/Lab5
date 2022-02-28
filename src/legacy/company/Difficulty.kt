@@ -1,4 +1,4 @@
-package com.company
+package legacy.company
 
 enum class Difficulty(val label: String) {
     VERY_EASY("VERY_EASY"),
