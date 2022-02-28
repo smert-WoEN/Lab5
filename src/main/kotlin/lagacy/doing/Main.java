@@ -5,7 +5,6 @@ import lagacy.doing.workWithFiles.FileWrite;
 
 import java.util.HashSet;
 import java.util.Scanner;
-@Deprecated
 
 public class Main {
     static HashSetHack hashSetHack = new HashSetHack();

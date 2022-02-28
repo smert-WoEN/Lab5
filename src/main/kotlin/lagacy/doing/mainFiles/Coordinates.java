@@ -2,7 +2,7 @@ package lagacy.doing.mainFiles;
 
 import java.io.PrintStream;
 import java.util.Scanner;
-@Deprecated
+
 public class Coordinates implements lagacy.Super.Coordinates {
     private int x; //Значение поля должно быть больше -497
     private double y; //Максимальное значение поля: 268

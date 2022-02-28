@@ -7,7 +7,6 @@ import lagacy.Super.Discipline;
 import java.io.PrintStream;
 import java.util.Date;
 import java.util.Scanner;
-@Deprecated
 
 public class LabWork implements lagacy.Super.LabWork {
     private int id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически

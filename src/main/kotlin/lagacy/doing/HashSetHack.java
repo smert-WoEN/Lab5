@@ -5,7 +5,6 @@ import lagacy.Super.HackedConstructor;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
-@Deprecated
 
 public class HashSetHack implements HackedConstructor {
     @Override
