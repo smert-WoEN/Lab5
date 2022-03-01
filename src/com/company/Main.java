@@ -3,12 +3,12 @@ package com.company;
 import com.company.superclass.Coordinates;
 import com.company.superclass.LabWork;
 
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        try {
-            LabWork labWork = new com.company.classes.LabWork();
-        } catch (RuntimeException e) {
-            System.err.println(e.getMessage());
-        }
+        Scanner scanner = new Scanner(System.in);
+        String[] input = scanner.nextLine().split(" ");
+        System.out.println(input.length);
     }
 }
