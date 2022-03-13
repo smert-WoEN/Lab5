@@ -9,18 +9,15 @@ version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+    flatDir { dirs 'lib' }
+
 }
 
 mainClassName = 'com.company.MainKt'
 
-jar {
-    manifest {
-        attributes 'Main-Class': mainClassName
-    }
-}
-
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation "commons-codec:commons-codec:1.15"
 }
 
 compileKotlin {
@@ -29,4 +26,12 @@ compileKotlin {
 }
 compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
+}
+
+tasks.jar {
+    manifest.attributes 'Main-Class': mainClassName
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
