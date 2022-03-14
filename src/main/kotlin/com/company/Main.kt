@@ -1,16 +1,19 @@
 package com.company
 
-import com.company.collection.*
-import com.company.files.HashSetToList
-import com.company.files.LabWorkToString
-import com.company.files.ListToFile
-import com.company.files.SystemPathToRoad
-import com.company.superclasses.Difficulty
-import java.util.*
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 
 
 fun main() {
-    var labWork = LabWork(1, "sd", Coordinates(200, 200.0), Date(), 100, 100.0,
+    val date = java.util.Date()
+    println(date)
+    println(date.time)
+    println(java.util.Date(date.time))
+    val df: DateFormat = SimpleDateFormat("EEE-MMM-dd-HH:mm:ss-zzz-yyyy")
+    val result = df.parse("Mon Mar 14 20:32:59 MSK 2022")
+    println(result)
+    println(DateFormat.getDateInstance(DateFormat.MEDIUM).parse("Mon Mar 14 20:32:59 MSK 2022"))
+    /*var labWork = LabWork(1, "sd", Coordinates(200, 200.0), Date(), 100, 100.0,
     Difficulty.EASY, Discipline("asd", null, 10, 10L, 50))
     val labWorkCollections = LabWorkCollections()
     labWorkCollections.labWorkCollections.add(labWork)
@@ -23,8 +26,12 @@ fun main() {
         val systemPathToRoad: String = SystemPathToRoad("JavaOut").path!!
         val listToFile = ListToFile(systemPathToRoad, HashSetToList(labWorkCollections.labWorkCollections).list)
         listToFile.fileWrite()
+        val fileReader = FileReader(systemPathToRoad)
+        val s = fileReader.readLines();
+        println(s)
+        println(s.size)
     } catch (e: RuntimeException) {
         System.err.println(e)
-    }
+    }*/
 }
 
