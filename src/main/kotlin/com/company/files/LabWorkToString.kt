@@ -11,7 +11,7 @@ class LabWorkToString(private val labWork: LabWork): com.company.superclasses.La
                     labWork.discipline.labsCount
 
         } else {
-            "" + labWork.id +  " " + labWork.name + " " + labWork.coordinates.x + " "  + labWork.coordinates.y + " " + labWork.creationDate.time + " " +
+            "" + labWork.id +  " " + labWork.name + " " + labWork.coordinates.x + " "  + labWork.coordinates.y + " " + labWork.creationDate + " " +
                     labWork.minimalPoint + " " + labWork.maximalPoint + " " + labWork.difficulty + " " + labWork.discipline.name + " " +
                     labWork.discipline.lectureHours + " " + labWork.discipline.practiceHours + " " + labWork.discipline.selfStudyHours + " " +
                     labWork.discipline.labsCount
