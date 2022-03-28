@@ -1,9 +1,7 @@
 package com.company.files
 
-import com.company.superclasses.PathUnzip
-
-class SystemPathToRoad (private val pathToRoad: String): PathUnzip{
-    override val path: String
-        get() = System.getenv("wfejof")
+class SystemPathToRoad (private val pathToRoad: String) {
+    val path: String
+        get() = System.getenv(pathToRoad)
                 ?: throw IllegalArgumentException("Can't find path \"$pathToRoad\". Please create this path.")
 }
