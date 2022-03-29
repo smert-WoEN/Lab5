@@ -1,4 +1,4 @@
 package com.company.commands
 
-class UdpateID {
+class UpdateID {
 }

@@ -6,6 +6,10 @@ class LabWorkCollections{
     val labWorkCollections = HashSet<LabWork>()
     lateinit var labWork: LabWork
 
+    fun updateLabWork() {
+        TODO("make update")
+    }
+
     fun removeLabWork(id: Int) {
         labWorkCollections.remove(findLabWork(id))
     }
@@ -41,7 +45,8 @@ class LabWorkCollections{
     }
 
     fun removeLessMinPoint(minPoint: Int) {
-        val labWorkCollections = HashSet<LabWork>()
+        labWorkCollections.removeIf { it.minimalPoint < minPoint }
+        /*val labWorkCollections = HashSet<LabWork>()
         for (labWork in this.labWorkCollections) {
             if (labWork.minimalPoint < minPoint) {
                 labWorkCollections.add(labWork.copy())
@@ -49,16 +54,12 @@ class LabWorkCollections{
         }
         for (labWork in labWorkCollections) {
             this.labWorkCollections.remove(labWork)
-        }
+        }*/
+
+        "".split(",").takeLast(1)
     }
 
-    fun sumMaxPoint(): Double {
-        var sum = 0.0
-        for (labWork in labWorkCollections) {
-            sum += labWork.maximalPoint
-        }
-        return sum
-    }
+    fun sumMaxPoint(): Double = labWorkCollections.sumOf { it.maximalPoint }
 
     fun findLabWorkCompareMaxPoint(maxPoint: Double): HashSet<LabWork> {
         val labWorkCollections = HashSet<LabWork>()
@@ -70,8 +71,8 @@ class LabWorkCollections{
         return labWorkCollections
     }
 
-    fun groupMinPoint(): HashMap<Int, Int> {
-        val minPoint = TreeSet<Int>()
+    fun groupMinPoint(): HashMap<Int, Int> { //need update
+        val minPoint = HashSet<Int>()
         for (labWork in labWorkCollections) {
             minPoint.add(labWork.minimalPoint)
         }

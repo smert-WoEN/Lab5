@@ -15,12 +15,17 @@ import kotlin.collections.ArrayList
 
 fun main() {
     var labWork = LabWork(1, "sd", Coordinates(200, 200.0), Date(), 100, 100.0,
-    Difficulty.EASY, Discipline("asd", null, 10, 10L, 50)
-    )
+        Difficulty.EASY, Discipline("asd", null, 10, 10L, 50))
     val labWorkCollections = LabWorkCollections()
     labWorkCollections.labWorkCollections.add(labWork)
     labWork = LabWork(1, "sd", Coordinates(200, 200.0), Date(), 110, 100.0,
         Difficulty.EASY, Discipline("asd", null, 10, 10L, 510))
+    labWorkCollections.labWorkCollections.add(labWork)
+    labWork = LabWork(1, "sd", Coordinates(200, 200.0), Date(), 100, 100.0,
+        Difficulty.EASY, Discipline("asd", null, 10, 10L, 5101))
+    labWorkCollections.labWorkCollections.add(labWork)
+    labWork = LabWork(1, "sd", Coordinates(200, 200.0), Date(), 100, 100.0,
+        Difficulty.EASY, Discipline("asd", null, 10, 10L, 5102))
     labWorkCollections.labWorkCollections.add(labWork)
     println(labWorkCollections.labWorkCollections.size)
     println(labWorkCollections.groupMinPoint())

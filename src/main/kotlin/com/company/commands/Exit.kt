@@ -1,6 +1,7 @@
 package com.company.commands
 
 class Exit: Command {
+
     override fun getLabel(): String {
         return "exit"
     }
@@ -10,6 +11,7 @@ class Exit: Command {
     }
 
     override fun execute(argument: String): String {
+        //переделать выход
         System.exit(0)
         return "Exited."
     }

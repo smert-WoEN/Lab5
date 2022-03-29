@@ -13,7 +13,9 @@ class Clear(private val labWorkCollections: LabWorkCollections): Command {
     }
 
     override fun execute(argument: String): String {
-        labWorkCollections.labWorkCollections.clear()
+
+        TODO("need make exit")
+        //labWorkCollections.clear()//labWorkCollections.clear()
         return "Collection cleared"
     }
 }

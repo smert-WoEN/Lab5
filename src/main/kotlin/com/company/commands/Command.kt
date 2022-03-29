@@ -1,6 +1,7 @@
 package com.company.commands
 
 interface Command {
+
     /**
      * Command label
      *
