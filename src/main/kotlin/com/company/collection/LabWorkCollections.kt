@@ -1,89 +1,48 @@
 package com.company.collection
 
+import java.util.Date
 import java.util.TreeSet
+import java.util.concurrent.atomic.AtomicInteger
 
-class LabWorkCollections{
-    val labWorkCollections = HashSet<LabWork>()
-    lateinit var labWork: LabWork
+class LabWorkCollections {
 
-    fun updateLabWork() {
+    val dateInInitialize = Date()
+    private val labWorkCollections = HashSet<LabWork>()
+
+    fun clearCollection() {
+        labWorkCollections.clear()
+    }
+
+    fun getCountElements() = labWorkCollections.size
+
+    @Suppress("UNCHECKED_CAST")
+    fun getCollections(): HashSet<LabWork> = labWorkCollections.clone() as HashSet<LabWork>
+
+    fun addLabWork(labWork: LabWork) {
+        labWorkCollections.add(labWork)
+    }
+
+    fun updateLabWork(id: Int) {
+        val remove = removeLabWork(id)
         TODO("make update")
     }
 
-    fun removeLabWork(id: Int) {
-        labWorkCollections.remove(findLabWork(id))
-    }
+    fun removeLabWork(id: Int): Boolean = labWorkCollections.removeIf { it.id == id}
 
-    fun findLabWork(id: Int): LabWork {
-        for (labWork in labWorkCollections) {
-            if (labWork.id == id) {
-                this.labWork = labWork
-                return labWork
-            }
-        }
-        throw IllegalArgumentException("labWork with id $id not found.")
-    }
+    fun findLabWork(id: Int): LabWork = labWorkCollections.find { it.id == id } ?: throw IllegalArgumentException("labWork with id $id not found.")
 
-    fun findMaxPointValue(): Double {
-        var maxPoint = 0.0
-        for (labWork in labWorkCollections) {
-            if (maxPoint < labWork.maximalPoint) {
-                maxPoint = labWork.maximalPoint
-            }
-        }
-        return maxPoint
-    }
+    fun findMaxPointValue(): Double = labWorkCollections.maxOf { it.maximalPoint }
 
-    fun findMinPointValue(): Int {
-        var minPoint = Int.MAX_VALUE
-        for (labWork in labWorkCollections) {
-            if (minPoint > labWork.minimalPoint) {
-                minPoint = labWork.minimalPoint
-            }
-        }
-        return minPoint
-    }
+    fun findMinPointValue(): Int = labWorkCollections.minOf { it.minimalPoint }
 
     fun removeLessMinPoint(minPoint: Int) {
         labWorkCollections.removeIf { it.minimalPoint < minPoint }
-        /*val labWorkCollections = HashSet<LabWork>()
-        for (labWork in this.labWorkCollections) {
-            if (labWork.minimalPoint < minPoint) {
-                labWorkCollections.add(labWork.copy())
-            }
-        }
-        for (labWork in labWorkCollections) {
-            this.labWorkCollections.remove(labWork)
-        }*/
-
-        "".split(",").takeLast(1)
     }
 
     fun sumMaxPoint(): Double = labWorkCollections.sumOf { it.maximalPoint }
 
-    fun findLabWorkCompareMaxPoint(maxPoint: Double): HashSet<LabWork> {
-        val labWorkCollections = HashSet<LabWork>()
-        for (labWork in this.labWorkCollections) {
-            if (labWork.maximalPoint == maxPoint) {
-                labWorkCollections.add(labWork.copy())
-            }
-        }
-        return labWorkCollections
-    }
+    fun findLabWorkCompareMaxPoint(maxPoint: Double): HashSet<LabWork> = labWorkCollections.filter { it.maximalPoint > maxPoint}.toHashSet()
 
-    fun groupMinPoint(): HashMap<Int, Int> { //need update
-        val minPoint = HashSet<Int>()
-        for (labWork in labWorkCollections) {
-            minPoint.add(labWork.minimalPoint)
-        }
-        val mapPoint = HashMap<Int, Int>()
-        for (p in minPoint) {
-            mapPoint[p] = 0
-        }
-        for (labWork in labWorkCollections) {
-            val point = mapPoint[labWork.minimalPoint]!!
-            mapPoint[labWork.minimalPoint] = (point + 1)
-        }
-        return mapPoint
-    }
+    fun groupMinPoint(): Map<Int, List<LabWork>> = labWorkCollections.groupBy { it.minimalPoint }
+
 }
