@@ -6,8 +6,12 @@ import java.util.concurrent.atomic.AtomicInteger
 
 class LabWorkCollections {
 
+    fun setFromList(hashSet: HashSet<LabWork>) {
+        labWorkCollections = hashSet
+    }
+
     val dateInInitialize = Date()
-    private val labWorkCollections = HashSet<LabWork>()
+    private var labWorkCollections = HashSet<LabWork>()
 
     fun clearCollection() {
         labWorkCollections.clear()

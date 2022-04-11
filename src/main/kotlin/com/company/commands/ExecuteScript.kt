@@ -40,18 +40,7 @@ private val userRunnable: UserRunnable): Command {
         }
         try {
             val fileReader = Scanner(FileInputStream(file))
-            val userRunnable = UserRunnable(this.userRunnable.scriptCommands, printStream, fileReader, labWorkCollections, labWorkCreator, string)
-            val stringBuilder = StringBuilder()
-            while (fileReader.available() > 0) stringBuilder.append(fileReader.read().toChar())
-            Arrays.stream(stringBuilder.toString().split("[\\r\\n]+".toRegex()).toTypedArray())
-                .forEach { line: String ->
-                    if (!line.isBlank()) printStream.append(line).append("\n")
-                    val formattedLine = line
-                        .replace("\\breplace_if_greater\\b".toRegex(), "replace_if_greater_csv")
-                        .replace("\\bupdate\\b".toRegex(), "update_csv")
-                        .replace("\\binsert\\b".toRegex(), "insert_csv")
-                    userRunnable.Execute(CommandReader.readCommandFromString(formattedLine))
-                }
+
             fileReader.close()
         } catch (e: FileNotFoundException) {
             throw IllegalArgumentException("Can't find file \"$file\".")
@@ -61,6 +50,6 @@ private val userRunnable: UserRunnable): Command {
             throw IllegalArgumentException("Error occurred accessing file \"$file\".")
         }
         printStream.append("Executed script from file \"").append(argument).append(".")
-        return "outputStream.toString(Charset.defaultCharset())"
+        return ""
     }
 }

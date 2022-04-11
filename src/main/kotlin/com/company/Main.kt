@@ -15,19 +15,27 @@ import kotlin.collections.ArrayList
 
 
 fun main() {
-    val scanner = Scanner(FileInputStream(File("D:\\intel\\untitled5\\src\\main\\kotlin\\com\\company\\s.txt")))
-    scanner.forEach { println(it) }
-//    val printStream = System.out
-//    val errorStream = System.err
-//    val scanner = Scanner(System.`in`)
-//    val pathName = "JavaOut1"
-//    try {
-//        val pathToRoad = SystemPathToRoad(pathName).path
-//        val labWorkCollections = LabWorkCollections()
-//        val labWorkCreator = LabWorkCreator(printStream, errorStream, scanner)
-//    } catch (e: IllegalArgumentException) {
-//        errorStream.println(e.message + " program can't load.")
-//    }
+    val printStream = System.out
+    val errorStream = System.err
+    val scanner = Scanner(System.`in`)
+    val pathName = "JavaOut"
+    try {
+        val pathToRoad = SystemPathToRoad(pathName).path
+        val labWorkCollections = LabWorkCollections()
+        lateinit var labWorkCreator: LabWorkCreator
+        try {
+            val listFromFile = ListFromFile(pathToRoad)
+            listFromFile.fileRead()
+            labWorkCreator = LabWorkCreator(printStream, errorStream, scanner, listFromFile.id)
+            labWorkCollections.setFromList(ListToHashSet(listFromFile.list).hashSet)
+        } catch (e: IllegalArgumentException) {
+            errorStream.println(e.message)
+            labWorkCreator = LabWorkCreator(printStream, errorStream, scanner)
+        }
+
+    } catch (e: IllegalArgumentException) {
+        errorStream.println(e.message + " program can't load.")
+    }
 
 
 
