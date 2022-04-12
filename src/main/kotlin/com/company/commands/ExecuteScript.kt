@@ -1,17 +1,13 @@
 package com.company.commands
 
-import com.company.collection.LabWorkCollections
-import com.company.collection.LabWorkCreator
-import com.company.ui.CommandReader
+
 import com.company.ui.UserRunnable
 import java.io.*
-import java.nio.charset.Charset
 import java.util.*
 
-class ExecuteScript(private val labWorkCollections: LabWorkCollections,
-private val labWorkCreator: LabWorkCreator,
-private val string: String,
-private val userRunnable: UserRunnable): Command {
+class ExecuteScript(private val userRunnable: UserRunnable,
+private val printStream: PrintStream,
+private val errorStream: PrintStream): Command {
     override fun getLabel(): String {
         return "executeScript"
     }
@@ -25,8 +21,6 @@ private val userRunnable: UserRunnable): Command {
     }
 
     override fun execute(argument: String): String {
-        val outputStream = ByteArrayOutputStream()
-        val printStream = PrintStream(outputStream)
         val file: File = try {
             File(argument)
         } catch (e: NullPointerException) {
@@ -40,7 +34,25 @@ private val userRunnable: UserRunnable): Command {
         }
         try {
             val fileReader = Scanner(FileInputStream(file))
-
+            fileReader.forEach {
+                value ->
+                val args = value.split(" ", limit = 2)
+                var flag1 = true
+                try {
+                    for (command in userRunnable.scriptCommands) {
+                        if (command.getLabel() == args[0]) {
+                            printStream.println(command.execute(if (args.size > 1) args[1] else " "))
+                            flag1 = false
+                            break
+                        }
+                    }
+                    if (flag1) {
+                        errorStream.println("Command not found or u can't use this command")
+                    }
+                } catch (e: RuntimeException) {
+                    errorStream.println(e.message)
+                }
+            }
             fileReader.close()
         } catch (e: FileNotFoundException) {
             throw IllegalArgumentException("Can't find file \"$file\".")
@@ -50,6 +62,6 @@ private val userRunnable: UserRunnable): Command {
             throw IllegalArgumentException("Error occurred accessing file \"$file\".")
         }
         printStream.append("Executed script from file \"").append(argument).append(".")
-        return ""
+        return "Script read"
     }
 }

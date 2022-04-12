@@ -15,7 +15,7 @@ class Help(private val userRunnable: UserRunnable): Command {
 
     override fun execute(argument: String): String {
         var response = "Available commands:\n"
-        Arrays.stream(userRunnable.userCommands).forEach { response += getLabel() + " " + getArgumentLabel() + " " + getDescription() + " \n"}
+        Arrays.stream(userRunnable.userCommands).forEach { value ->  response += value.getLabel() + " " + value.getArgumentLabel() + " " + value.getDescription() + " \n"}
         response += "Collection class members have to be entered line-by-line. Standard types (including primitive types) have to be entered in the same line as the command."
         return response
     }

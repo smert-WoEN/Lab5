@@ -1,0 +1,3 @@
+show
+help
+executeScript D:\intel\untitled5\src\main\kotlin\com\company\test.txt

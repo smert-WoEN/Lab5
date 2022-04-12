@@ -3,7 +3,9 @@ package com.company.ui
 import com.company.collection.LabWorkCollections
 import com.company.collection.LabWorkCreator
 import com.company.commands.*
+import java.io.PrintStream
 import java.lang.Runnable
+import java.util.Scanner
 
 
 /**
@@ -12,7 +14,10 @@ import java.lang.Runnable
 class UserRunnable(
     labWorkCollections: LabWorkCollections,
     labWorkCreator: LabWorkCreator,
-    string: String
+    string: String,
+    private val printStream: PrintStream,
+    private val errorStream: PrintStream,
+    private val scanner: Scanner
 ) : Runnable {
 
     /**
@@ -25,7 +30,7 @@ class UserRunnable(
         UpdateID(labWorkCreator, labWorkCollections),
         Clear(labWorkCollections),
         Save(labWorkCollections, labWorkCreator, string),
-        ExecuteScript(labWorkCollections,labWorkCreator,string, this),
+        ExecuteScript(this, printStream, errorStream),
         Exit(),
         Add(labWorkCreator, labWorkCollections),
         AddIfMin(labWorkCreator, labWorkCollections),
@@ -48,7 +53,7 @@ class UserRunnable(
         UpdateID(labWorkCreator, labWorkCollections),
         Clear(labWorkCollections),
         Save(labWorkCollections, labWorkCreator, string),
-        ExecuteScript(labWorkCollections,labWorkCreator,string, this),
+        ExecuteScript(this, printStream, errorStream),
         Exit(),
         Add(labWorkCreator, labWorkCollections),
         AddIfMin(labWorkCreator, labWorkCollections),
@@ -68,14 +73,14 @@ class UserRunnable(
         Help(this),
         Info(labWorkCollections),
         Show(labWorkCollections),
-        UpdateID(labWorkCreator, labWorkCollections),
+        //UpdateID(labWorkCreator, labWorkCollections),
         Clear(labWorkCollections),
         Save(labWorkCollections, labWorkCreator, string),
         //Execute_script(),
-        Exit(),
-        Add(labWorkCreator, labWorkCollections),
-        AddIfMin(labWorkCreator, labWorkCollections),
-        AddIfMax(labWorkCreator, labWorkCollections),
+        //Exit(),
+        //Add(labWorkCreator, labWorkCollections),
+        //AddIfMin(labWorkCreator, labWorkCollections),
+        //AddIfMax(labWorkCreator, labWorkCollections),
         Clear(labWorkCollections),
         FilterMaxPoint(labWorkCollections),
         GroupMinPoint(labWorkCollections),
@@ -85,7 +90,36 @@ class UserRunnable(
     )
 
     override fun run() {
-        TODO("Not yet implemented")
+        var flag = true
+        while (flag) {
+            printStream.print("Input command: ")
+            val arg = scanner.nextLine()
+            println("as")
+            val args = arg.split(" ", limit = 2)
+            println(args)
+            var flag1 = true
+            try {
+                for (command in userCommands) {
+                    if (args[0] == "exit") {
+                        flag = false
+                        flag1 = false
+                        break
+                    }
+                    if (command.getLabel() == args[0]) {
+                        printStream.println("ass")
+                        printStream.println(command.execute(if (args.size > 1) args[1] else " "))
+                        flag1 = false
+                        break
+                    }
+                }
+                if (flag1) {
+                    errorStream.println("Command not found")
+                }
+            } catch (e: RuntimeException) {
+                errorStream.println(e.message)
+            }
+
+        }
     }
 
 

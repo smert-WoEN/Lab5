@@ -16,7 +16,7 @@ class Save(private val labWorkCollections: LabWorkCollections, private val labWo
     }
 
     override fun execute(argument: String): String {
-        ListToFile(string, HashSetToList(labWorkCollections.getCollections()).list, labWorkCreator.getId())
+        ListToFile(string, HashSetToList(labWorkCollections.getCollections()).list, labWorkCreator.getId()).fileWrite()
         return "Collection save"
     }
 }

@@ -1,17 +1,9 @@
 package com.company
 
 import com.company.collection.*
-import com.company.commands.Add
-import com.company.commands.Command
 import com.company.files.*
-import com.company.superclasses.Difficulty
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileReader
-import java.text.DateFormat
-import java.text.SimpleDateFormat
+import com.company.ui.UserRunnable
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 fun main() {
@@ -23,9 +15,14 @@ fun main() {
         val pathToRoad = SystemPathToRoad(pathName).path
         val labWorkCollections = LabWorkCollections()
         lateinit var labWorkCreator: LabWorkCreator
+        lateinit var userRunnable: UserRunnable
         try {
             val listFromFile = ListFromFile(pathToRoad)
-            listFromFile.fileRead()
+            try {
+                listFromFile.fileRead()
+            } catch (e: NumberFormatException) {
+                errorStream.println(e.message)
+            }
             labWorkCreator = LabWorkCreator(printStream, errorStream, scanner, listFromFile.id)
             labWorkCollections.setFromList(ListToHashSet(listFromFile.list).hashSet)
         } catch (e: IllegalArgumentException) {
@@ -33,6 +30,8 @@ fun main() {
             labWorkCreator = LabWorkCreator(printStream, errorStream, scanner)
         }
 
+        userRunnable = UserRunnable(labWorkCollections, labWorkCreator,pathToRoad, printStream, errorStream, scanner)
+        userRunnable.run()
     } catch (e: IllegalArgumentException) {
         errorStream.println(e.message + " program can't load.")
     }

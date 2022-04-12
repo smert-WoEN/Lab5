@@ -13,6 +13,7 @@ class ListToFile(private val name: String, private val list: ArrayList<LabWork>,
         try {
             BufferedWriter(FileWriter(name)).use { writer ->
                 writer.write(id.toString() + ", " + DigestUtils.sha512Hex(id.toString()) + "\n")
+                println(name)
                 for (labWork in list) {
                     val string = LabWorkToString(labWork).labWorkToString(csv = true)
                     writer.write(string + ", " + DigestUtils.sha512Hex(string) + "\n")
