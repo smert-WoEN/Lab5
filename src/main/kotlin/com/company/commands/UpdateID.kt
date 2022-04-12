@@ -1,6 +1,5 @@
 package com.company.commands
 
-import com.company.collection.LabWork
 import com.company.collection.LabWorkCollections
 import com.company.collection.LabWorkCreator
 import kotlin.properties.Delegates
@@ -25,7 +24,7 @@ class UpdateID(private val labWorkCreator: LabWorkCreator, private val labWorkCo
         }
         val date = labWorkCollections.findLabWork(id).creationDate
         labWorkCollections.removeLabWork(id)
-        labWorkCreator.inputLabWorkFromConsole(id, date)
+        labWorkCollections.addLabWork(labWorkCreator.inputLabWorkFromConsole(id, date))
         return "Update successful"
     }
 }

@@ -15,7 +15,6 @@ fun main() {
         val pathToRoad = SystemPathToRoad(pathName).path
         val labWorkCollections = LabWorkCollections()
         lateinit var labWorkCreator: LabWorkCreator
-        lateinit var userRunnable: UserRunnable
         try {
             val listFromFile = ListFromFile(pathToRoad)
             try {
@@ -30,7 +29,8 @@ fun main() {
             labWorkCreator = LabWorkCreator(printStream, errorStream, scanner)
         }
 
-        userRunnable = UserRunnable(labWorkCollections, labWorkCreator,pathToRoad, printStream, errorStream, scanner)
+        val userRunnable =
+            UserRunnable(labWorkCollections, labWorkCreator,pathToRoad, printStream, errorStream, scanner)
         userRunnable.run()
     } catch (e: IllegalArgumentException) {
         errorStream.println(e.message + " program can't load.")

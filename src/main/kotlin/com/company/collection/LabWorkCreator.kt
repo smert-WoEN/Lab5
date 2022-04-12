@@ -12,7 +12,7 @@ class LabWorkCreator(private val printStream: PrintStream, private val errorStre
 
     fun getId() = id.get()
 
-    fun getIdNew() = id.getAndAdd(1)
+    private fun getIdNew() = id.getAndAdd(1)
 
     fun inputNewLabWorkFromConsole(): LabWork {
         return inputLabWorkFromConsole(getIdNew(), Date())
@@ -83,7 +83,7 @@ class LabWorkCreator(private val printStream: PrintStream, private val errorStre
             try {
                 printStream.print("Input maximalPoint: ")
                 val string = (scanner.nextLine()).toDouble()
-                maximalPoint = validatorCoordinates.checkY(string)
+                maximalPoint = validatorLabWork.checkMaximalPoint(string)
                 flag = true
             } catch (e: NumberFormatException) {
                 errorStream.println("It's not number!")

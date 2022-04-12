@@ -1,10 +1,8 @@
 package com.company.commands
 
 import com.company.collection.LabWorkCollections
-import kotlin.properties.Delegates
 
 class SumMaxPoint(private val labWorkCollections: LabWorkCollections): Command {
-
 
     override fun getLabel(): String {
         return "sumMaxPoint"

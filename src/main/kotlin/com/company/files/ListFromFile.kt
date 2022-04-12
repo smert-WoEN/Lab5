@@ -33,6 +33,7 @@ class ListFromFile (private val name: String): FromFile {
                 if (firstStringArray[1].trim() != DigestUtils.sha512Hex(firstStringArray[0].trim())) {
                     stringError = ("This file cannot be loaded because it has been modified.")
                 } else {
+                    id = firstStringArray[0].trim().toInt()
                     for (string in array) {
                         val reverseS = string.reversed()
                         val arrayS = reverseS.split(",", limit = 2)

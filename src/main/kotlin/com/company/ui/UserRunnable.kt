@@ -94,9 +94,7 @@ class UserRunnable(
         while (flag) {
             printStream.print("Input command: ")
             val arg = scanner.nextLine()
-            println("as")
             val args = arg.split(" ", limit = 2)
-            println(args)
             var flag1 = true
             try {
                 for (command in userCommands) {
@@ -106,7 +104,6 @@ class UserRunnable(
                         break
                     }
                     if (command.getLabel() == args[0]) {
-                        printStream.println("ass")
                         printStream.println(command.execute(if (args.size > 1) args[1] else " "))
                         flag1 = false
                         break
