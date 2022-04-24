@@ -1,8 +1,6 @@
 package com.company.files
 
-import com.company.collection.Coordinates
-import com.company.collection.Discipline
-import com.company.collection.LabWork
+import com.company.collection.*
 import com.company.superclasses.Difficulty
 import com.company.superclasses.FromFile
 import org.apache.commons.codec.digest.DigestUtils
@@ -43,26 +41,34 @@ class ListFromFile (private val name: String): FromFile {
                         if (DigestUtils.sha512Hex(string1) != hashCodeString) {
                             count++
                         } else {
-                            val values = string1.split(",", limit = 13)
-                            val labWork = LabWork(
-                                (values[0].trim()).toInt(),
-                                (values[1].trim()),
-                                Coordinates(values[2].trim().toInt(), values[3].trim().toDouble()),
-                                Date(values[4].trim().toLong()),
-                                values[5].trim().toInt(),
-                                values[6].trim().toDouble(),
-                                Difficulty.valueOf(values[7].trim()),
-                                Discipline(
-                                    values[8].trim(),
-                                    if (values[9].trim() == "null") null else values[9].trim().toLong(),
-                                    values[10].trim().toInt(),
-                                    values[11].trim().toLong(),
-                                    values[12].trim().toInt()
+                            try {
+                                val validatorLabWork = ValidatorLabWork()
+                                val validatorCoordinates = ValidateCoordinates()
+                                val validatorDiscipline = ValidatorDiscipline()
+
+                                val values = string1.split(",", limit = 13)
+                                val labWork = validatorLabWork.checkLabWork(
+                                    (values[0].trim()).toInt() ,
+                                    (values[1].trim()),
+                                    validatorCoordinates.checkCoordinates(values[2].trim().toInt(), values[3].trim().toDouble()),
+                                    Date(values[4].trim().toLong()),
+                                    values[5].trim().toInt(),
+                                    values[6].trim().toDouble(),
+                                    Difficulty.valueOf(values[7].trim()),
+                                    validatorDiscipline.checkDiscipline(
+                                        values[8].trim(),
+                                        if (values[9].trim() == "null") null else values[9].trim().toLong(),
+                                        values[10].trim().toInt(),
+                                        values[11].trim().toLong(),
+                                        values[12].trim().toInt()
+                                    )
                                 )
-                            )
-                            list.add(labWork)
-                            if (values[0].trim().toInt() > maxId) {
-                                maxId = values[0].trim().toInt()
+                                list.add(labWork)
+                                if (values[0].trim().toInt() > maxId) {
+                                    maxId = values[0].trim().toInt()
+                                }
+                            } catch (e: IllegalArgumentException) {
+                                count++
                             }
                         }
                     }
