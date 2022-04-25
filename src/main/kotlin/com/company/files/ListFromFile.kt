@@ -43,7 +43,7 @@ class ListFromFile (private val name: String): FromFile {
                         } else {
                             try {
                                 val validatorLabWork = ValidatorLabWork()
-                                val validatorCoordinates = ValidateCoordinates()
+                                val validatorCoordinates = ValidatorCoordinates()
                                 val validatorDiscipline = ValidatorDiscipline()
 
                                 val values = string1.split(",", limit = 13)

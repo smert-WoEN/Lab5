@@ -18,9 +18,33 @@ class LabWorkCreator(private val printStream: PrintStream, private val errorStre
         return inputLabWorkFromConsole(getIdNew(), Date())
     }
 
+    fun inputNewLabWorkFromCSVString(string: String): LabWork {
+        return inputLabWorkFromCSVString(string, getIdNew(), Date())
+    }
+
+    fun inputLabWorkFromCSVString(string: String, id: Int, creationDate: Date): LabWork {
+        val values = string.split(",", limit = 11)
+        return ValidatorLabWork().checkLabWork(
+            id,
+            (values[0].trim()),
+            ValidatorCoordinates().checkCoordinates(values[1].trim().toInt(), values[2].trim().toDouble()),
+            creationDate,
+            values[3].trim().toInt(),
+            values[4].trim().toDouble(),
+            Difficulty.valueOf(values[5].trim()),
+            ValidatorDiscipline().checkDiscipline(
+                values[6].trim(),
+                if (values[7].trim() == "null") null else values[7].trim().toLong(),
+                values[8].trim().toInt(),
+                values[9].trim().toLong(),
+                values[10].trim().toInt()
+            )
+        )
+    }
+
     fun inputLabWorkFromConsole(id: Int, creationDate: Date): LabWork {
         val validatorLabWork = ValidatorLabWork()
-        val validatorCoordinates = ValidateCoordinates()
+        val validatorCoordinates = ValidatorCoordinates()
         val validatorDiscipline = ValidatorDiscipline()
         lateinit var name: String
         var flag = false

@@ -1,12 +1,12 @@
 package com.company.collection
 
-import com.company.collection.ValidateCoordinates.CoordinatesValidatorConfig.maxX
-import com.company.collection.ValidateCoordinates.CoordinatesValidatorConfig.maxY
-import com.company.collection.ValidateCoordinates.CoordinatesValidatorConfig.minX
-import com.company.collection.ValidateCoordinates.CoordinatesValidatorConfig.minY
+import com.company.collection.ValidatorCoordinates.CoordinatesValidatorConfig.maxX
+import com.company.collection.ValidatorCoordinates.CoordinatesValidatorConfig.maxY
+import com.company.collection.ValidatorCoordinates.CoordinatesValidatorConfig.minX
+import com.company.collection.ValidatorCoordinates.CoordinatesValidatorConfig.minY
 import com.company.superclasses.CoordinatesValidate
 
-class ValidateCoordinates: CoordinatesValidate {
+class ValidatorCoordinates: CoordinatesValidate {
     internal object CoordinatesValidatorConfig{
         var minX = -497
         var maxX = Int.MAX_VALUE
