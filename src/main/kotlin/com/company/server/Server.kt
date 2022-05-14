@@ -1,11 +1,7 @@
 package com.company.server
 
 import com.company.collection.LabWork
-import java.io.ByteArrayInputStream
 import java.io.IOException
-import java.io.InputStream
-import java.io.ObjectInput
-import java.io.ObjectInputStream
 import java.net.InetSocketAddress
 import java.nio.channels.SelectionKey
 import java.nio.channels.ServerSocketChannel
@@ -17,10 +13,11 @@ fun accept(key: SelectionKey) {
     val channel = key.channel() as ServerSocketChannel
     val socket = channel.accept()
     val ipAddress = socket.socket().inetAddress.hostAddress
+    println(ipAddress)
     println("connected from $ipAddress")
     socket.configureBlocking(false)
     val k = socket.register(key.selector(), SelectionKey.OP_READ or SelectionKey.OP_WRITE)
-    k.interestOps(SelectionKey.OP_READ)
+    //k.interestOps(SelectionKey.OP_READ)
     k.attach(SomeClient(ipAddress, socket, k))
     println("connection add")
 }
@@ -28,12 +25,14 @@ fun main() {
     val ip = ""
     val port = 25566
     try{
-        val acceprot = ServerSocketChannel.open()
-        acceprot.configureBlocking(false)
-        acceprot.socket().bind(InetSocketAddress(ip, port))
-        acceprot.socket().reuseAddress = true
+        val acceptor = ServerSocketChannel.open()
+        acceptor.configureBlocking(false)
+        val inet = InetSocketAddress(port)
+        println(inet)
+        acceptor.socket().bind(inet)
+        acceptor.socket().reuseAddress = true
         val selector = SelectorProvider.provider().openSelector()
-        val acceptKey = acceprot.register(selector, SelectionKey.OP_ACCEPT)
+        val acceptKey = acceptor.register(selector, SelectionKey.OP_ACCEPT)
         acceptKey.interestOps(SelectionKey.OP_ACCEPT)
         while (true) {
             selector.select()
@@ -45,20 +44,32 @@ fun main() {
                     continue
                 }
                 val someClient: SomeClient? = key.attachment() as? SomeClient
-                if (key.isAcceptable){
-                    accept(key)
-                }
-                if (key.isReadable) {
-                    println("ok")
-                    val s = someClient!!.receiveMessage()
-                    val byteArrayInputStream: InputStream = ByteArrayInputStream(s)
-                    println(byteArrayInputStream)
-                    val objectInputStream: ObjectInputStream = ObjectInputStream(byteArrayInputStream)
-                    val obj = objectInputStream.readObject()
-                    println(obj)
-                    if (obj is LabWork){
-                        println(obj.id)
+                lateinit var labWork: LabWork
+                try {
+                    if (key.isAcceptable) {
+                        accept(key)
                     }
+                    if (key.isReadable) {
+                        val obj = someClient!!.receiveMessage()
+//                        val byteArrayInputStream: InputStream = ByteArrayInputStream(s)
+//                        println(byteArrayInputStream)
+//                        val objectInputStream: ObjectInputStream = ObjectInputStream(byteArrayInputStream)
+//                        val obj = objectInputStream.readObject()
+                        print("$obj ")
+                        if (obj is LabWork) {
+                            println(obj.id)
+                            labWork = obj
+                            someClient.sendMess(labWork)
+                        }
+
+                    }
+                    if (key.isWritable) {
+                        //println("yes")
+                        someClient!!.sendMessage()
+                    }
+                } catch (e: IOException) {
+                    //e.printStackTrace()
+                    someClient?.disconnect()
                 }
             }
         }
