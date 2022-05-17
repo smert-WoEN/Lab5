@@ -2,9 +2,8 @@ package com.company.commands
 
 import com.company.collection.LabWorkCollections
 import com.company.collection.LabWorkCreator
-import java.io.PrintStream
-import java.util.Scanner
 
+@Deprecated("")
 class Add(private val labWorkCreator: LabWorkCreator, private val labWorkCollections: LabWorkCollections): Command {
 
 

@@ -11,19 +11,18 @@ import java.nio.channels.SelectionKey
 import java.nio.channels.SocketChannel
 
 class SomeClient(private val ipAddress: String, private val socket: SocketChannel, private val key: SelectionKey,
-private var bufferIn: ByteBuffer = ByteBuffer.allocate(2048),
-                 private var bufferOut: ByteBuffer = ByteBuffer.allocate(2048)) {
+private var bufferIn: ByteBuffer = ByteBuffer.allocate(1024 * 1024),
+                 private var bufferOut: ByteBuffer = ByteBuffer.allocate(1024 * 1024)) {
     //var bufferIn: ByteBuffer = ByteBuffer.allocate(1024)
     ///var bufferOut: ByteBuffer = ByteBuffer.allocate(1024)
 
     fun receiveMessage(): Any {
-        var bytesIn = 0
         //bufferIn.clear()
-        bytesIn = socket.read(bufferIn)
+        val bytesIn: Int = socket.read(bufferIn)
         if (bytesIn == -1) {
             throw IOException("Socket closed")
         }
-        var byteArray: ByteArray = ByteArray(0)
+        var byteArray = ByteArray(0)
         if (bytesIn > 0) {
 
             bufferIn.flip()
@@ -39,12 +38,12 @@ private var bufferIn: ByteBuffer = ByteBuffer.allocate(2048),
             bufferIn.compact()
         }
         val byteArrayInputStream: InputStream = ByteArrayInputStream(byteArray)
-        val objectInputStream: ObjectInputStream = ObjectInputStream(byteArrayInputStream)
+        val objectInputStream = ObjectInputStream(byteArrayInputStream)
         return objectInputStream.readObject()
     }
 
     fun sendMess(any: Any) {
-        val byteArrayOutputStream = ByteArrayOutputStream(2048)
+        val byteArrayOutputStream = ByteArrayOutputStream(1024 * 1024)
         val obj = ObjectOutputStream(byteArrayOutputStream)
         obj.writeObject(any)
         obj.flush()
@@ -52,7 +51,7 @@ private var bufferIn: ByteBuffer = ByteBuffer.allocate(2048),
         bufferOut.put(byteArray)
     }
 
-    fun sendMessage() {
+    fun sendMessage(): Int {
         bufferOut.flip()
         val bytesOut = socket.write(bufferOut)
         bufferOut.compact()
@@ -61,10 +60,12 @@ private var bufferIn: ByteBuffer = ByteBuffer.allocate(2048),
         } else {
             key.interestOps(SelectionKey.OP_READ)
         }
+        return bytesOut
     }
 
     fun disconnect() {
         try {
+            println("$ipAddress disconnect")
             socket.close()
             key.cancel()
         } catch (e: IOException) {

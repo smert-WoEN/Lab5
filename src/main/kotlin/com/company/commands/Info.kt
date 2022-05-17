@@ -1,7 +1,7 @@
 package com.company.commands
 
 import com.company.collection.LabWorkCollections
-
+@Deprecated("")
 class Info (private val labWorkCollections: LabWorkCollections): Command {
 
 
@@ -10,10 +10,10 @@ class Info (private val labWorkCollections: LabWorkCollections): Command {
     }
 
     override fun getDescription(): String {
-        return "dive information about collection"
+        return "give information about collection"
     }
 
     override fun execute(argument: String): String {
-        return "Dragon collection, initialization date: " + labWorkCollections.dateInInitialize + ", number of elements: " + labWorkCollections.getCountElements() + "."
+        return "LabWork collection, initialization date: " + labWorkCollections.dateInInitialize + ", number of elements: " + labWorkCollections.getCountElements() + "."
     }
 }

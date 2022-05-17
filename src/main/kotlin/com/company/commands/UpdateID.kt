@@ -3,7 +3,7 @@ package com.company.commands
 import com.company.collection.LabWorkCollections
 import com.company.collection.LabWorkCreator
 import kotlin.properties.Delegates
-
+@Deprecated("")
 class UpdateID(private val labWorkCreator: LabWorkCreator, private val labWorkCollections: LabWorkCollections): Command {
 
 

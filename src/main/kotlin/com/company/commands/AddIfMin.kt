@@ -2,7 +2,7 @@ package com.company.commands
 
 import com.company.collection.LabWorkCollections
 import com.company.collection.LabWorkCreator
-
+@Deprecated("")
 class AddIfMin(private val labWorkCreator: LabWorkCreator, private val labWorkCollections: LabWorkCollections): Command {
 
     override fun getLabel(): String {

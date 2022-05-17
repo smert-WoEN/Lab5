@@ -1,17 +1,18 @@
 package com.company.collection
 
 import java.util.Date
-import java.util.TreeSet
-import java.util.concurrent.atomic.AtomicInteger
+import java.util.concurrent.ConcurrentHashMap
 
 class LabWorkCollections {
 
     fun setFromList(hashSet: HashSet<LabWork>) {
-        labWorkCollections = hashSet
+        labWorkCollections.addAll(hashSet)
     }
 
     val dateInInitialize = Date()
-    private var labWorkCollections = HashSet<LabWork>()
+    private var concurrentHashMap = ConcurrentHashMap<LabWork, String>()
+    private var labWorkCollections: MutableSet<LabWork> = concurrentHashMap.keySet("SET-ENTRY")
+    //private var labWorkCollections = HashSet<LabWork>()
 
     fun clearCollection() {
         labWorkCollections.clear()
@@ -20,16 +21,16 @@ class LabWorkCollections {
     fun getCountElements() = labWorkCollections.size
 
     @Suppress("UNCHECKED_CAST")
-    fun getCollections(): HashSet<LabWork> = labWorkCollections.clone() as HashSet<LabWork>
+    fun getCollections(): HashSet<LabWork> = HashSet(labWorkCollections)
 
     fun addLabWork(labWork: LabWork) {
         labWorkCollections.add(labWork)
+        println(labWorkCollections)
     }
 
-    fun updateLabWork(id: Int) {
-        val remove = removeLabWork(id)
-        TODO("make update")
-    }
+//    fun updateLabWork(id: Int) {
+//        val remove = removeLabWork(id)
+//    }
 
     fun removeLabWork(id: Int): Boolean = labWorkCollections.removeIf { it.id == id}
 

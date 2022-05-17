@@ -42,6 +42,23 @@ class LabWorkCreator(private val printStream: PrintStream, private val errorStre
         )
     }
 
+    fun inputNewLabWorkFromClient(labWorkClient: LabWorkClient): LabWork {
+        return inputLabWorkFromClient(labWorkClient, getIdNew(), Date())
+    }
+
+    fun inputLabWorkFromClient(labWorkClient: LabWorkClient, id: Int, date: Date): LabWork {
+        val validatorLabWork = ValidatorLabWork()
+        val validatorCoordinates = ValidatorCoordinates()
+        val validatorDiscipline = ValidatorDiscipline()
+        return LabWork(id, validatorLabWork.checkName(labWorkClient.name),
+        validatorCoordinates.checkCoordinates(labWorkClient.coordinates.x, labWorkClient.coordinates.y),
+        date, validatorLabWork.checkMinimalPoint(labWorkClient.minimalPoint),
+        validatorLabWork.checkMaximalPoint(labWorkClient.maximalPoint),
+        labWorkClient.difficulty, validatorDiscipline.checkDiscipline(labWorkClient.discipline.name,
+            labWorkClient.discipline.lectureHours, labWorkClient.discipline.practiceHours,
+            labWorkClient.discipline.selfStudyHours, labWorkClient.discipline.labsCount))
+    }
+
     fun inputLabWorkFromConsole(id: Int, creationDate: Date): LabWork {
         val validatorLabWork = ValidatorLabWork()
         val validatorCoordinates = ValidatorCoordinates()

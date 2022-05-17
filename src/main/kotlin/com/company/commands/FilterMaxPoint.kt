@@ -1,11 +1,10 @@
 package com.company.commands
 
-import com.company.collection.LabWork
 import com.company.collection.LabWorkCollections
 import com.company.files.LabWorkToString
-import kotlin.math.max
 import kotlin.properties.Delegates
 
+@Deprecated("")
 class FilterMaxPoint (private val labWorkCollections: LabWorkCollections): Command {
 
 

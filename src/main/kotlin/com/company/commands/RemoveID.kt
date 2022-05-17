@@ -1,9 +1,8 @@
 package com.company.commands
 
 import com.company.collection.LabWorkCollections
-import com.company.collection.LabWorkCreator
 import kotlin.properties.Delegates
-
+@Deprecated("")
 class RemoveID (private val labWorkCollections: LabWorkCollections): Command {
 
 

@@ -2,8 +2,7 @@ package com.company.commands
 
 import com.company.collection.LabWorkCollections
 import com.company.files.LabWorkToString
-import kotlin.properties.Delegates
-
+@Deprecated("")
 class Show (private val labWorkCollections: LabWorkCollections): Command {
 
 

@@ -2,7 +2,7 @@ package com.company.commands
 
 import com.company.collection.LabWorkCollections
 import kotlin.properties.Delegates
-
+@Deprecated("")
 class RemoveLower (private val labWorkCollections: LabWorkCollections): Command {
 
 

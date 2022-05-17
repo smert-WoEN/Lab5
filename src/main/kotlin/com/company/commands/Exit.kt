@@ -1,5 +1,5 @@
 package com.company.commands
-
+@Deprecated("")
 class Exit: Command {
 
     override fun getLabel(): String {

@@ -1,5 +1,5 @@
 package com.company.commands
-
+@Deprecated("")
 interface Command {
 
     /**

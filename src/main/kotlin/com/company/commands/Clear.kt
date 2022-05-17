@@ -1,7 +1,7 @@
 package com.company.commands
 
 import com.company.collection.LabWorkCollections
-
+@Deprecated("")
 class Clear(private val labWorkCollections: LabWorkCollections): Command {
 
     override fun getLabel(): String {

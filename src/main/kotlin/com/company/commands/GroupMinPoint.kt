@@ -1,8 +1,7 @@
 package com.company.commands
 
 import com.company.collection.LabWorkCollections
-import kotlin.properties.Delegates
-
+@Deprecated("")
 class GroupMinPoint (private val labWorkCollections: LabWorkCollections): Command {
 
 
