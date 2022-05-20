@@ -13,7 +13,7 @@ repositories {
 
 }
 
-mainClassName = 'com.company.MainKt'
+mainClassName = 'com.company.server.ServerKt'
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
@@ -32,6 +32,7 @@ compileTestKotlin {
 
 tasks.jar {
     manifest.attributes 'Main-Class': mainClassName
+    manifest.attributes 'Multi-Release':true
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }

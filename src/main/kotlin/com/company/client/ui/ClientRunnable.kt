@@ -8,7 +8,7 @@ import java.util.Scanner
 import java.util.concurrent.atomic.AtomicBoolean
 
 class ClientRunnable(
-    socket: ClientSocket,
+    private val socket: ClientSocket,
     labWorkCreatorClient: LabWorkCreatorClient,
     private val printStream: PrintStream,
     private val errorStream: PrintStream,
@@ -76,8 +76,11 @@ class ClientRunnable(
             try {
                 for (command in userCommands) {
                     if (args[0] == "exit") {
+                        //socket.sendMessage(Message("exit", "exit"))
                         flag.set(false)
                         flag1.set(false)
+                        socket.disconnect()
+                        printStream.println("program finish")
                         break
                     }
                     if (command.getLabel() == args[0]) {

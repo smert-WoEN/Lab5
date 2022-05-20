@@ -1,12 +1,14 @@
 package com.company.server.ui
 
 import com.company.Message
+import com.company.SocketCloseException
 import com.company.collection.LabWorkCollections
 import com.company.collection.LabWorkCreator
 import com.company.server.SomeClient
 import com.company.server.commands.*
 import com.company.server.serverCommands.Help
 import com.company.server.serverCommands.Save
+import org.apache.logging.log4j.Logger
 import java.io.IOException
 import java.io.PrintStream
 import java.net.InetSocketAddress
@@ -23,7 +25,8 @@ labWorkCreator: LabWorkCreator,
 string: String,
 private val printStream: PrintStream,
 private val errorStream: PrintStream,
-private val scanner: Scanner)
+private val scanner: Scanner,
+private val logger: Logger)
     : Runnable {
 
     val serverCommands = arrayOf(
@@ -93,6 +96,7 @@ private val scanner: Scanner)
                     errorStream.println("Command not found")
                 }
             } catch (e: RuntimeException) {
+                logger.error(e)
                 errorStream.println(e.message)
             }
         }
@@ -139,13 +143,19 @@ private val scanner: Scanner)
                             //println("yes")
                             someClient!!.sendMessage()
                         }
+                    } catch (e: SocketCloseException) {
+                        logger.error(e.message)
+                        //e.printStackTrace()
+                        someClient?.disconnect()
                     } catch (e: IOException) {
+                        logger.error(e)
                         //e.printStackTrace()
                         someClient?.disconnect()
                     }
                 }
             } catch (e: IOException) {
-                e.printStackTrace()
+                logger.error(e)
+                //e.printStackTrace()
             }
         }
     }
@@ -155,12 +165,12 @@ private val scanner: Scanner)
         val channel = key.channel() as ServerSocketChannel
         val socket = channel.accept()
         val ipAddress = socket.socket().inetAddress.hostAddress
-        println(ipAddress)
-        println("connected from $ipAddress")
+        //println(ipAddress)
+        logger.error("connected from $ipAddress")
         socket.configureBlocking(false)
         val k = socket.register(key.selector(), SelectionKey.OP_READ or SelectionKey.OP_WRITE)
         //k.interestOps(SelectionKey.OP_READ)
-        k.attach(SomeClient(ipAddress, socket, k))
-        println("connection add")
+        k.attach(SomeClient(logger, ipAddress, socket, k))
+        //println("connection add")
     }
 }

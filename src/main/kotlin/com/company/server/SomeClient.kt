@@ -1,5 +1,7 @@
 package com.company.server
 
+import com.company.SocketCloseException
+import org.apache.logging.log4j.Logger
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.IOException
@@ -10,17 +12,18 @@ import java.nio.ByteBuffer
 import java.nio.channels.SelectionKey
 import java.nio.channels.SocketChannel
 
-class SomeClient(private val ipAddress: String, private val socket: SocketChannel, private val key: SelectionKey,
+class SomeClient(private val logger: Logger, private val ipAddress: String, private val socket: SocketChannel, private val key: SelectionKey,
 private var bufferIn: ByteBuffer = ByteBuffer.allocate(1024 * 1024),
                  private var bufferOut: ByteBuffer = ByteBuffer.allocate(1024 * 1024)) {
     //var bufferIn: ByteBuffer = ByteBuffer.allocate(1024)
     ///var bufferOut: ByteBuffer = ByteBuffer.allocate(1024)
 
     fun receiveMessage(): Any {
+        logger.error("receive message")
         //bufferIn.clear()
         val bytesIn: Int = socket.read(bufferIn)
         if (bytesIn == -1) {
-            throw IOException("Socket closed")
+            throw SocketCloseException("Socket closed")
         }
         var byteArray = ByteArray(0)
         if (bytesIn > 0) {
@@ -43,6 +46,7 @@ private var bufferIn: ByteBuffer = ByteBuffer.allocate(1024 * 1024),
     }
 
     fun sendMess(any: Any) {
+        logger.error("send message")
         val byteArrayOutputStream = ByteArrayOutputStream(1024 * 1024)
         val obj = ObjectOutputStream(byteArrayOutputStream)
         obj.writeObject(any)
@@ -65,11 +69,12 @@ private var bufferIn: ByteBuffer = ByteBuffer.allocate(1024 * 1024),
 
     fun disconnect() {
         try {
-            println("$ipAddress disconnect")
+            logger.error("$ipAddress disconnect")
             socket.close()
             key.cancel()
         } catch (e: IOException) {
-            e.printStackTrace()
+            logger.fatal(e)
+            //e.printStackTrace()
         }
     }
 }

@@ -10,8 +10,8 @@ class LabWorkCollections {
     }
 
     val dateInInitialize = Date()
-    private var concurrentHashMap = ConcurrentHashMap<LabWork, String>()
-    private var labWorkCollections: MutableSet<LabWork> = concurrentHashMap.keySet("SET-ENTRY")
+    //private var concurrentHashMap = ConcurrentHashMap<LabWork, Boolean>()
+    private var labWorkCollections: MutableSet<LabWork> = ConcurrentHashMap.newKeySet()//.keySet("SET-ENTRY")
     //private var labWorkCollections = HashSet<LabWork>()
 
     fun clearCollection() {
@@ -31,7 +31,6 @@ class LabWorkCollections {
 //    fun updateLabWork(id: Int) {
 //        val remove = removeLabWork(id)
 //    }
-
     fun removeLabWork(id: Int): Boolean = labWorkCollections.removeIf { it.id == id}
 
     fun findLabWork(id: Int): LabWork = labWorkCollections.find { it.id == id } ?: throw IllegalArgumentException("labWork with id $id not found.")

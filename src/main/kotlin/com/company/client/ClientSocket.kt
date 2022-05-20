@@ -40,4 +40,8 @@ class ClientSocket(private val ip: String, private val port: Int) {
         val objectInputStream = ObjectInputStream(inputStream)
         return objectInputStream.readObject()
     }
+
+    fun disconnect() {
+        socket.close()
+    }
 }
