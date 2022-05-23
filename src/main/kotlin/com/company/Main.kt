@@ -5,7 +5,7 @@ import com.company.files.*
 import com.company.ui.UserRunnable
 import java.util.*
 
-
+@Deprecated("")
 fun main() {
     val printStream = System.out
     val errorStream = System.err

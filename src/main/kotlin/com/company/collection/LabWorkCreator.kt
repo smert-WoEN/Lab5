@@ -13,7 +13,7 @@ class LabWorkCreator(private val printStream: PrintStream, private val errorStre
     fun getId() = id.get()
 
     private fun getIdNew() = id.getAndAdd(1)
-
+    @Deprecated("")
     fun inputNewLabWorkFromConsole(): LabWork {
         return inputLabWorkFromConsole(getIdNew(), Date())
     }
@@ -58,7 +58,7 @@ class LabWorkCreator(private val printStream: PrintStream, private val errorStre
             labWorkClient.discipline.lectureHours, labWorkClient.discipline.practiceHours,
             labWorkClient.discipline.selfStudyHours, labWorkClient.discipline.labsCount))
     }
-
+    @Deprecated("")
     fun inputLabWorkFromConsole(id: Int, creationDate: Date): LabWork {
         val validatorLabWork = ValidatorLabWork()
         val validatorCoordinates = ValidatorCoordinates()

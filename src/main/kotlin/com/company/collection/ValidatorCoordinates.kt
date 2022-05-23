@@ -10,7 +10,7 @@ class ValidatorCoordinates: CoordinatesValidate {
     internal object CoordinatesValidatorConfig{
         var minX = -497
         var maxX = Int.MAX_VALUE
-        var minY = Double.MIN_VALUE
+        var minY = -Double.MAX_VALUE
         var maxY = 268
     }
 

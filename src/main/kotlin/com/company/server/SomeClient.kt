@@ -19,7 +19,7 @@ private var bufferIn: ByteBuffer = ByteBuffer.allocate(1024 * 1024),
     ///var bufferOut: ByteBuffer = ByteBuffer.allocate(1024)
 
     fun receiveMessage(): Any {
-        logger.error("receive message")
+        logger.info("receive message")
         //bufferIn.clear()
         val bytesIn: Int = socket.read(bufferIn)
         if (bytesIn == -1) {
@@ -46,7 +46,7 @@ private var bufferIn: ByteBuffer = ByteBuffer.allocate(1024 * 1024),
     }
 
     fun sendMess(any: Any) {
-        logger.error("send message")
+        logger.info("send message")
         val byteArrayOutputStream = ByteArrayOutputStream(1024 * 1024)
         val obj = ObjectOutputStream(byteArrayOutputStream)
         obj.writeObject(any)
@@ -69,11 +69,11 @@ private var bufferIn: ByteBuffer = ByteBuffer.allocate(1024 * 1024),
 
     fun disconnect() {
         try {
-            logger.error("$ipAddress disconnect")
+            logger.info("$ipAddress disconnect")
             socket.close()
             key.cancel()
         } catch (e: IOException) {
-            logger.fatal(e)
+            logger.error(e)
             //e.printStackTrace()
         }
     }

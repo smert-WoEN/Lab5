@@ -69,10 +69,10 @@ private val logger: Logger)
     private val runnable = Runnable {
 
         while (atomicBoolean.get()) {
-            val arg = scanner.nextLine()
-            val args = arg.split(" ", limit = 2)
-            var flag = true
             try {
+                val arg = scanner.nextLine()
+                val args = arg.split(" ", limit = 2)
+                var flag = true
                 for (command in serverCommands) {
                     if (args[0] == "exit") {
                         flag = false
@@ -124,7 +124,7 @@ private val logger: Logger)
                         }
                         if (key.isReadable) {
                             val message = someClient!!.receiveMessage()
-                            if (message is Message){
+                            if (message is Message) {
                                 var flag = true
                                 for (command in commands) {
                                     if (command.getLabel() == message.string) {
@@ -134,7 +134,7 @@ private val logger: Logger)
                                     }
                                 }
                                 if (flag) {
-                                    someClient.sendMess(Message("answer","Command not found"))
+                                    someClient.sendMess(Message("answer", "Command not found"))
                                 }
                             }
 
@@ -144,7 +144,7 @@ private val logger: Logger)
                             someClient!!.sendMessage()
                         }
                     } catch (e: SocketCloseException) {
-                        logger.error(e.message)
+                        logger.info(e.message)
                         //e.printStackTrace()
                         someClient?.disconnect()
                     } catch (e: IOException) {
@@ -166,7 +166,7 @@ private val logger: Logger)
         val socket = channel.accept()
         val ipAddress = socket.socket().inetAddress.hostAddress
         //println(ipAddress)
-        logger.error("connected from $ipAddress")
+        logger.info("connected from $ipAddress")
         socket.configureBlocking(false)
         val k = socket.register(key.selector(), SelectionKey.OP_READ or SelectionKey.OP_WRITE)
         //k.interestOps(SelectionKey.OP_READ)

@@ -2,6 +2,7 @@ package com.company.collection
 
 import java.util.Date
 import java.util.concurrent.ConcurrentHashMap
+import java.util.stream.Collectors
 
 class LabWorkCollections {
 
@@ -45,8 +46,11 @@ class LabWorkCollections {
 
     fun sumMaxPoint(): Double = labWorkCollections.sumOf { it.maximalPoint }
 
-    fun findLabWorkCompareMaxPoint(maxPoint: Double): HashSet<LabWork> = labWorkCollections.filter { it.maximalPoint > maxPoint}.toHashSet()
+    fun findLabWorkCompareMaxPoint(maxPoint: Double): Set<LabWork> = labWorkCollections.stream()
+        .filter { it.maximalPoint > maxPoint }
+        .collect(Collectors.toSet())//labWorkCollections.filter { it.maximalPoint > maxPoint}.toHashSet()
 
-    fun groupMinPoint(): Map<Int, List<LabWork>> = labWorkCollections.groupBy { it.minimalPoint }
+    fun groupMinPoint(): Map<Int, List<LabWork>> = labWorkCollections.parallelStream()
+        .collect(Collectors.groupingBy { it.minimalPoint } )//labWorkCollections.groupBy { it.minimalPoint }
 
 }

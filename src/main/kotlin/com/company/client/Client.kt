@@ -3,6 +3,8 @@ package com.company.client
 import com.company.client.ui.ClientRunnable
 import com.company.collection.LabWorkCreatorClient
 import java.io.IOException
+import java.net.ConnectException
+import java.net.SocketException
 import java.util.*
 
 fun main() {
@@ -19,8 +21,13 @@ fun main() {
         clientRunnable.run()
     } catch (e: RuntimeException){
         e.printStackTrace()
-    }  catch (e: IOException) {
-        errorStream.println(e.message)
+    } catch (e: ConnectException) {
+        errorStream.println("Can't connect. Try again later.")
+    } catch (e: SocketException) {
+        errorStream.println("Server closed. Try again later.")
+    } catch (e: IOException) {
+        errorStream.println("Unknown connect, try again later.")
+        e.printStackTrace()
     }
 
 //    val socket = Socket()
