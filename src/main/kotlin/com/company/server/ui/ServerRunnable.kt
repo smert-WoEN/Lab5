@@ -70,6 +70,7 @@ private val logger: Logger)
 
         while (atomicBoolean.get()) {
             try {
+                printStream.print("Input command: ")
                 val arg = scanner.nextLine()
                 val args = arg.split(" ", limit = 2)
                 var flag = true
@@ -84,6 +85,7 @@ private val logger: Logger)
                             }
                         }
                         printStream.println("finish program")
+                        logger.info("Finish program and save")
                         break
                     }
                     if (command.getLabel() == args[0]) {
