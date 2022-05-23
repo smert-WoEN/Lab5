@@ -26,7 +26,6 @@ class LabWorkCollections {
 
     fun addLabWork(labWork: LabWork) {
         labWorkCollections.add(labWork)
-        println(labWorkCollections)
     }
 
 //    fun updateLabWork(id: Int) {
