@@ -27,7 +27,7 @@ fun main() {
         errorStream.println("Server closed. Try again later.")
     } catch (e: IOException) {
         errorStream.println("Unknown connect, try again later.")
-        e.printStackTrace()
+       // e.printStackTrace()
     }
 
 //    val socket = Socket()

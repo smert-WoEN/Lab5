@@ -13,7 +13,7 @@ repositories {
 
 }
 
-mainClassName = 'com.company.server.ServerKt'
+mainClassName = 'com.company.client.ClientKt'
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"

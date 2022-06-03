@@ -28,7 +28,8 @@ class ClientRunnable(
         Show(socket),
         SumMaxPoint(socket),
         UpdateID(socket, labWorkCreatorClient),
-        ExecuteScript(this, printStream, errorStream)
+        ExecuteScript(this, printStream, errorStream),
+        Exit()
     )
 
     val userCommands = arrayOf(
@@ -45,7 +46,8 @@ class ClientRunnable(
         Show(socket),
         SumMaxPoint(socket),
         UpdateID(socket, labWorkCreatorClient),
-        ExecuteScript(this, printStream, errorStream)
+        ExecuteScript(this, printStream, errorStream),
+        Exit()
     )
 
     val scriptCommands = arrayOf(

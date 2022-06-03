@@ -1,4 +1,4 @@
 Manifest-Version: 1.0
 Multi-Release: true
-Main-Class: com.company.server.ServerKt
+Main-Class: com.company.client.ClientKt
 
