@@ -1,6 +1,7 @@
 package com.company.files
 
 import com.company.collection.*
+import com.company.legacy.LabWork
 import com.company.superclasses.Difficulty
 import com.company.superclasses.FromFile
 import org.apache.commons.codec.digest.DigestUtils

@@ -1,10 +1,12 @@
 package com.company.server.commands
 
+
 import com.company.collection.LabWorkClient
 import com.company.collection.LabWorkCollections
+import com.company.collection.LabWorkComparator
 import com.company.collection.LabWorkCreator
 
-class AddIfMax(private val labWorkCreator: LabWorkCreator, private val labWorkCollections: LabWorkCollections): Command {
+class AddIfMax(private val labWorkComparator: LabWorkComparator): Command {
     /**
      * Command label
      *
@@ -32,8 +34,8 @@ class AddIfMax(private val labWorkCreator: LabWorkCreator, private val labWorkCo
     override fun execute(any: Any): String {
         return if (any is LabWorkClient) {
             try {
-                if (labWorkCollections.findMaxPointValue() < any.maximalPoint) {
-                    labWorkCollections.addLabWork(labWorkCreator.inputNewLabWorkFromClient(any))
+                if (labWorkComparator.findMaxPointValue() < any.maximalPoint) {
+                    labWorkComparator.addLabWork(any)
                     "add successful"
                 } else {
                     "max point less then max in collection"

@@ -1,8 +1,9 @@
 package com.company.server.commands
 
 import com.company.collection.LabWorkCollections
+import com.company.collection.LabWorkComparator
 
-class Info(private val labWorkCollections: LabWorkCollections):Command {
+class Info(private val labWorkComparator: LabWorkComparator):Command {
     /**
      * Command label
      *
@@ -30,7 +31,7 @@ class Info(private val labWorkCollections: LabWorkCollections):Command {
     override fun execute(any: Any): String {
         return if (any is String) {
             try {
-                "LabWork collection, initialization date: " + labWorkCollections.dateInInitialize + ", number of elements: " + labWorkCollections.getCountElements() + "."
+                "LabWork collection, initialization date: " + labWorkComparator.getInitDate() + ", number of elements: " + labWorkComparator.getCountElements() + "."
             } catch (e: IllegalArgumentException) {
                 e.message!!
             }

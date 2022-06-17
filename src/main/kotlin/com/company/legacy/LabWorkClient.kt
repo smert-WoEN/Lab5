@@ -1,12 +1,13 @@
-package com.company.collection
+package com.company.legacy
 
+import com.company.collection.Coordinates
+import com.company.collection.Discipline
 import com.company.superclasses.Difficulty
-import java.util.Date
-
-data class LabWork(val id: Int, val name: String, val coordinates: Coordinates,
-                   val creationDate: Date, val minimalPoint: Int,
-                   val maximalPoint: Double, val difficulty: Difficulty,
-                   val discipline: Discipline, val owner: String
+@Deprecated("")
+data class LabWorkClient(val name: String, val coordinates: Coordinates,
+                         val minimalPoint: Int,
+                         val maximalPoint: Double, val difficulty: Difficulty,
+                         val discipline: Discipline
 ): Comparable<LabWork>, java.io.Serializable {
     /**
      * LabWork-to-LabWork comparator
@@ -17,5 +18,4 @@ data class LabWork(val id: Int, val name: String, val coordinates: Coordinates,
     override fun compareTo(other: LabWork): Int {
         return (this.maximalPoint - other.maximalPoint).toInt()
     }
-//Comporator
 }

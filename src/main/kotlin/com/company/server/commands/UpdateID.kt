@@ -1,8 +1,8 @@
 package com.company.server.commands
 
-import com.company.collection.LabWorkCollections
+import com.company.collection.LabWorkComparator
 
-class UpdateID(private val labWorkCollections: LabWorkCollections): Command {
+class UpdateID(private val labWorkComparator: LabWorkComparator): Command {
     /**
      * Command label
      *
@@ -28,11 +28,14 @@ class UpdateID(private val labWorkCollections: LabWorkCollections): Command {
      * @return Command execution result
      */
     override fun execute(any: Any): String {
-        return if (any is Int) {
+        return if (any is String) {
             try {
-                labWorkCollections.findLabWork(any)
+                val args = any.split(" ", limit = 2)
+                labWorkComparator.findLabWork(args[0].toInt(), args[1])
                 "yes"
             } catch (e: IllegalArgumentException) {
+                e.message!!
+            } catch (e: RuntimeException) {
                 e.message!!
             }
         } else {

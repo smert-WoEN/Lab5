@@ -1,6 +1,6 @@
 package com.company.superclasses
 
-import com.company.collection.LabWork
+import com.company.legacy.LabWork
 
 interface FromFile {
     val id: Int

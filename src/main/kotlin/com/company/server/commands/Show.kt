@@ -1,9 +1,10 @@
 package com.company.server.commands
 
 import com.company.collection.LabWorkCollections
+import com.company.collection.LabWorkComparator
 import com.company.files.LabWorkToString
 
-class Show(private val labWorkCollections: LabWorkCollections): Command {
+class Show(private val labWorkComparator: LabWorkComparator): Command {
     /**
      * Command label
      *
@@ -31,7 +32,7 @@ class Show(private val labWorkCollections: LabWorkCollections): Command {
     override fun execute(any: Any): String {
         return if (any is String) {
             try {
-                val group = labWorkCollections.getCollections()
+                val group = labWorkComparator.getCollections()
                 var string = ""
                 group.forEach { value ->
                     string += "${LabWorkToString(value).labWorkToString()} \n"

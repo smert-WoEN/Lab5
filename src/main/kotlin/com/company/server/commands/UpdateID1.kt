@@ -3,10 +3,11 @@ package com.company.server.commands
 import com.company.Message
 import com.company.collection.LabWorkClient
 import com.company.collection.LabWorkCollections
+import com.company.collection.LabWorkComparator
 import com.company.collection.LabWorkCreator
 import kotlin.properties.Delegates
 
-class UpdateID1(private val labWorkCreator: LabWorkCreator, private val labWorkCollections: LabWorkCollections): Command {
+class UpdateID1(private val labWorkComparator: LabWorkComparator): Command {
     /**
      * Command label
      *
@@ -40,10 +41,8 @@ class UpdateID1(private val labWorkCreator: LabWorkCreator, private val labWorkC
                 } catch (e: NumberFormatException) {
                     throw IllegalArgumentException("It's not number!")
                 }
-                val date = labWorkCollections.findLabWork(id).creationDate
-                labWorkCollections.removeLabWork(id)
-                labWorkCollections.addLabWork(labWorkCreator.inputLabWorkFromClient(any.any, id, date))
-                return "Update successful"
+                labWorkComparator.updateById(id, any.any)
+               return "Update successful"
             } catch (e: IllegalArgumentException) {
                 e.message!!
             }

@@ -4,6 +4,7 @@ import com.company.collection.ValidatorLabWork.LabWorkValidateConfig.maxMaximalP
 import com.company.collection.ValidatorLabWork.LabWorkValidateConfig.maxMinimalPoint
 import com.company.collection.ValidatorLabWork.LabWorkValidateConfig.minMaximalPoint
 import com.company.collection.ValidatorLabWork.LabWorkValidateConfig.minMinimalPoint
+import com.company.legacy.LabWork
 import com.company.superclasses.Difficulty
 import com.company.superclasses.LabWorkValidate
 import java.util.*

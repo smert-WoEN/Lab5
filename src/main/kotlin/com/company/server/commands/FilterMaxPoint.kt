@@ -1,9 +1,10 @@
 package com.company.server.commands
 
 import com.company.collection.LabWorkCollections
+import com.company.collection.LabWorkComparator
 import com.company.files.LabWorkToString
 
-class FilterMaxPoint(private val labWorkCollections: LabWorkCollections): Command {
+class FilterMaxPoint(private val labWorkComparator: LabWorkComparator): Command {
     /**
      * Command label
      *
@@ -31,7 +32,7 @@ class FilterMaxPoint(private val labWorkCollections: LabWorkCollections): Comman
     override fun execute(any: Any): String {
         return if (any is Double) {
             try {
-                val group = labWorkCollections.findLabWorkCompareMaxPoint(any)
+                val group = labWorkComparator.findLabWorkCompareMaxPoint(any)
                 var string = ""
                 group.forEach { value -> string += "${LabWorkToString(value).labWorkToString()} \n" }
                 return string

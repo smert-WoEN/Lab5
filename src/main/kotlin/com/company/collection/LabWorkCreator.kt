@@ -1,5 +1,7 @@
 package com.company.collection
 
+import com.company.legacy.LabWork
+import com.company.legacy.LabWorkClient
 import com.company.superclasses.Difficulty
 import java.io.PrintStream
 import java.util.*

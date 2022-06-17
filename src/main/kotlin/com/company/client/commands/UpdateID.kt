@@ -39,16 +39,17 @@ class UpdateID(private val socket: ClientSocket,
         } catch (e: NumberFormatException) {
             throw IllegalArgumentException("It's not number!")
         }
-        socket.sendMessage(Message(getLabel(), id))
+        socket.sendMessage(Message(getLabel(), "$id ${socket.token.login}", socket.token.token))
         val answer = socket.readMessage() as Message
-        if (answer.string == "answer") {
+        if (answer.string == "answer" && answer.token == socket.token.token) {
             if (answer.any as String != "yes") {
                 return answer.any
             }
         }
         //return (if (answer.string == "answer") answer.any as String else "bad answer, idk add to collection.")
-        socket.sendMessage(Message(getLabel()+"1", Message("$id", labWorkCreatorClient.inputLabWorkFromConsole())))
+        socket.sendMessage(Message(getLabel()+"1", Message("$id", labWorkCreatorClient.inputLabWorkFromConsole(socket), socket.token.token),
+        socket.token.token))
         val answer1 = socket.readMessage() as Message
-        return (if (answer1.string == "answer") answer1.any as String else "bad answer, idk add to collection.")
+        return (if (answer1.string == "answer" && answer1.token == socket.token.token) answer1.any as String else "bad answer, idk add to collection.")
     }
 }

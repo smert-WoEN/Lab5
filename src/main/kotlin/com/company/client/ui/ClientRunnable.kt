@@ -4,6 +4,7 @@ import com.company.client.ClientSocket
 import com.company.client.commands.*
 import com.company.collection.LabWorkCreatorClient
 import java.io.PrintStream
+import java.util.ResourceBundle
 import java.util.Scanner
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -13,6 +14,13 @@ class ClientRunnable(
     private val printStream: PrintStream,
     private val errorStream: PrintStream,
     private val scanner: Scanner): Runnable {
+
+    val nonLogin = arrayOf(
+        Exit(),
+        Register(socket),
+        Help(this),
+        Login(socket)
+    )
 
     val allCommands = arrayOf(
         Add(socket, labWorkCreatorClient),
@@ -29,7 +37,9 @@ class ClientRunnable(
         SumMaxPoint(socket),
         UpdateID(socket, labWorkCreatorClient),
         ExecuteScript(this, printStream, errorStream),
-        Exit()
+        Exit(),
+        Register(socket),
+        Login(socket)
     )
 
     val userCommands = arrayOf(
@@ -76,23 +86,44 @@ class ClientRunnable(
             val args = arg.split(" ", limit = 2)
             val flag1 = AtomicBoolean(true)
             try {
-                for (command in userCommands) {
-                    if (args[0] == "exit") {
-                        //socket.sendMessage(Message("exit", "exit"))
-                        flag.set(false)
-                        flag1.set(false)
-                        socket.disconnect()
-                        printStream.println("program finish")
-                        break
+                if (socket.initToken) {
+                    for (command in userCommands) {
+                        if (args[0] == "exit") {
+                            //socket.sendMessage(Message("exit", "exit"))
+                            flag.set(false)
+                            flag1.set(false)
+                            socket.disconnect()
+                            printStream.println("program finish")
+                            break
+                        }
+                        if (command.getLabel() == args[0]) {
+                            printStream.println(command.execute(if (args.size > 1) args[1] else " "))
+                            flag1.set(false)
+                            break
+                        }
                     }
-                    if (command.getLabel() == args[0]) {
-                        printStream.println(command.execute(if (args.size > 1) args[1] else " "))
-                        flag1.set(false)
-                        break
+                    if (flag1.get()) {
+                        errorStream.println("Command not found")
                     }
-                }
-                if (flag1.get()) {
-                    errorStream.println("Command not found")
+                } else {
+                    for (command in nonLogin) {
+                        if (args[0] == "exit") {
+                            //socket.sendMessage(Message("exit", "exit"))
+                            flag.set(false)
+                            flag1.set(false)
+                            socket.disconnect()
+                            printStream.println("program finish")
+                            break
+                        }
+                        if (command.getLabel() == args[0]) {
+                            printStream.println(command.execute(if (args.size > 1) args[1] else " "))
+                            flag1.set(false)
+                            break
+                        }
+                    }
+                    if (flag1.get()) {
+                        errorStream.println("Command not found")
+                    }
                 }
             } catch (e: RuntimeException) {
                 e.printStackTrace()

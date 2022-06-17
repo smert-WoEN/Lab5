@@ -17,7 +17,7 @@ private var bufferIn: ByteBuffer = ByteBuffer.allocate(1024 * 1024),
                  private var bufferOut: ByteBuffer = ByteBuffer.allocate(1024 * 1024)) {
     //var bufferIn: ByteBuffer = ByteBuffer.allocate(1024)
     ///var bufferOut: ByteBuffer = ByteBuffer.allocate(1024)
-
+    lateinit var token: Token
     fun receiveMessage(): Any {
         logger.info("receive message")
         //bufferIn.clear()

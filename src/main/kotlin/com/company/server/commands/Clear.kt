@@ -1,8 +1,9 @@
 package com.company.server.commands
 
 import com.company.collection.LabWorkCollections
+import com.company.collection.LabWorkComparator
 
-class Clear(private val labWorkCollections: LabWorkCollections): Command {
+class Clear(private val labWorkComparator: LabWorkComparator): Command {
     /**
      * Command label
      *
@@ -30,7 +31,7 @@ class Clear(private val labWorkCollections: LabWorkCollections): Command {
     override fun execute(any: Any): String {
         return if (any is String) {
             try {
-                labWorkCollections.clearCollection()
+                labWorkComparator.clearElements(any)
                 "clear successful"
             } catch (e: IllegalArgumentException) {
                 e.message!!

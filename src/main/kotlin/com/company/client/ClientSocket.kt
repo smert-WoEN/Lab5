@@ -1,5 +1,6 @@
 package com.company.client
 
+import com.company.server.Token
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.io.InputStream
@@ -16,6 +17,8 @@ class ClientSocket(private val ip: String, private val port: Int) {
     private lateinit var inputStream: InputStream
     private lateinit var outputStream: OutputStream
 
+    var initToken = false
+    lateinit var token: Token
     @Throws(IOException::class)
     fun initialize() {
         serverSocketAddress = InetSocketAddress(ip, port)

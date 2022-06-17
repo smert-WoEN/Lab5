@@ -1,5 +1,6 @@
 package com.company.collection
 
+import com.company.client.ClientSocket
 import com.company.superclasses.Difficulty
 import java.io.PrintStream
 import java.util.Scanner
@@ -7,7 +8,7 @@ import kotlin.properties.Delegates
 
 class LabWorkCreatorClient(private val printStream: PrintStream, private val errorStream: PrintStream, private val scanner: Scanner) {
 
-    fun inputLabWorkFromConsole(): LabWorkClient {
+    fun inputLabWorkFromConsole(socket: ClientSocket): LabWorkClient {
         val validatorLabWork = ValidatorLabWork()
         val validatorCoordinates = ValidatorCoordinates()
         val validatorDiscipline = ValidatorDiscipline()
@@ -162,6 +163,6 @@ class LabWorkCreatorClient(private val printStream: PrintStream, private val err
             }
         } while (!flag)
         return LabWorkClient(name, Coordinates(x, y), minimalPoint, maximalPoint, difficulty,
-            Discipline(nameDiscipline, lectureHours, practiceHours, selfStudyHours, labsCount))
+            Discipline(nameDiscipline, lectureHours, practiceHours, selfStudyHours, labsCount), socket.token.login)
     }
 }

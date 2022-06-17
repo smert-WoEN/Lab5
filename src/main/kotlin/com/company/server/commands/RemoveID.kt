@@ -1,8 +1,9 @@
 package com.company.server.commands
 
 import com.company.collection.LabWorkCollections
+import com.company.collection.LabWorkComparator
 
-class RemoveID(private val labWorkCollections: LabWorkCollections): Command {
+class RemoveID(private val labWorkComparator: LabWorkComparator): Command {
     override fun getLabel(): String {
         return "remove"
     }
@@ -18,11 +19,18 @@ class RemoveID(private val labWorkCollections: LabWorkCollections): Command {
      * @return Command execution result
      */
     override fun execute(any: Any): String {
-        return if (any is Int) {
+        return if (any is String) {
             try {
-                labWorkCollections.removeLabWork(any)
-                "remove successful"
+                val args = any.split(" ", limit = 2)
+                if (labWorkComparator.removeLabWork(args[0].toInt(), args[1])) {
+                    "remove successful"
+                } else {
+                    "can't remove"
+                }
             } catch (e: IllegalArgumentException) {
+                e.message!!
+            }
+            catch (e: RuntimeException) {
                 e.message!!
             }
         } else {

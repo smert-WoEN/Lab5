@@ -1,8 +1,8 @@
 package com.company.server.commands
 
-import com.company.collection.LabWorkCollections
+import com.company.collection.LabWorkComparator
 
-class GroupMinPoint(private val labWorkCollections: LabWorkCollections): Command {
+class GroupMinPoint(private val labWorkComparator: LabWorkComparator): Command {
     /**
      * Command label
      *
@@ -30,7 +30,7 @@ class GroupMinPoint(private val labWorkCollections: LabWorkCollections): Command
     override fun execute(any: Any): String {
         return if (any is String) {
             try {
-                val group = labWorkCollections.groupMinPoint()
+                val group = labWorkComparator.groupMinPoint()
                 var string = ""
                 group.forEach { (key, value) ->
                     string += "minPoint: $key: ${value.size} \n"
