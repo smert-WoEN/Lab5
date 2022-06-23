@@ -3,9 +3,6 @@ package com.company.server
 import com.company.collection.LabWorkBD
 import com.company.collection.LabWorkCollections
 import com.company.collection.LabWorkComparator
-import com.company.collection.LabWorkCreator
-import com.company.files.ListFromFile
-import com.company.files.ListToHashSet
 import com.company.files.SystemPathToRoad
 import com.company.server.ui.ServerRunnable
 import org.apache.logging.log4j.LogManager
@@ -20,7 +17,6 @@ fun main() {
    // val pathName = "JavaOut"
     val logger: Logger = LogManager.getLogger()
     logger.info("Starting server.")
-    println("asd s da s".split(" ", limit = 2))
 
 
     //val logMaker = LogMaker()

@@ -5,9 +5,7 @@ import com.company.SocketCloseException
 import com.company.client.Login
 import com.company.client.Register
 import com.company.collection.LabWorkBD
-import com.company.collection.LabWorkCollections
 import com.company.collection.LabWorkComparator
-import com.company.collection.LabWorkCreator
 import com.company.server.SomeClient
 import com.company.server.Token
 import com.company.server.commands.*
@@ -24,20 +22,22 @@ import java.nio.channels.spi.SelectorProvider
 import java.util.*
 import java.util.concurrent.atomic.AtomicBoolean
 
-class ServerRunnable(private val port: Int,
-private val labWorkComparator: LabWorkComparator,
-                    private val labWorkBD: LabWorkBD,
-private val printStream: PrintStream,
-private val errorStream: PrintStream,
-private val scanner: Scanner,
-private val logger: Logger)
-    : Runnable {
+class ServerRunnable(
+    private val port: Int,
+    private val labWorkComparator: LabWorkComparator,
+    private val labWorkBD: LabWorkBD,
+    private val printStream: PrintStream,
+    private val errorStream: PrintStream,
+    private val scanner: Scanner,
+    private val logger: Logger
+) : Runnable {
 
     val serverCommands = arrayOf(
         //Save(labWorkCollections, labWorkCreator, string),
         Help(this),
         //com.company.server.serverCommands.Info(labWorkCollections)
     )
+
 
     val commands = arrayOf(
         //Help(this),
@@ -60,6 +60,7 @@ private val logger: Logger)
     private val acceptor = ServerSocketChannel.open()
     private lateinit var selector: AbstractSelector
     private lateinit var acceptKey: SelectionKey
+
     @Throws(IOException::class)
     fun initialize() {
         acceptor.configureBlocking(false)
@@ -70,6 +71,7 @@ private val logger: Logger)
         acceptKey = acceptor.register(selector, SelectionKey.OP_ACCEPT)
         acceptKey.interestOps(SelectionKey.OP_ACCEPT)
     }
+
     private val atomicBoolean = AtomicBoolean(true)
     private val runnable = Runnable {
 
@@ -125,17 +127,17 @@ private val logger: Logger)
                         }
                         if (key.isReadable) {
                             val message = someClient!!.receiveMessage()
+                            lateinit var any: Any
                             if (message is Login) {
-                                println("res")
                                 try {
                                     if (labWorkBD.getUserPassword(message.login) == message.password) {
                                         someClient.token = Token(message.login, message.password, message.timeDate)
-                                        someClient.sendMess(Message("answer", "Login Ok", ""))
+                                        any = (Message("answer", "Login Ok", ""))
                                     } else {
-                                        someClient.sendMess(Message("answer", "Password or Login Error",""))
+                                        any = (Message("answer", "Password or Login Error", ""))
                                     }
                                 } catch (e: PSQLException) {
-                                    someClient.sendMess(Message("answer", "Password or Login Error or register", ""))
+                                    any = (Message("answer", "Password or Login Error or register", ""))
                                 }
 
                             }
@@ -143,27 +145,33 @@ private val logger: Logger)
                                 try {
                                     if (message.password == message.password2) {
                                         labWorkBD.addUser(message.login, message.password)
-                                        someClient.sendMess(Message("answer", "RegisterComplete", ""))
+                                        any = (Message("answer", "RegisterComplete", ""))
                                     }
                                 } catch (e: PSQLException) {
-                                    someClient.sendMess(Message("answer", "login use, change login", ""))
+                                    any = (Message("answer", "login use, change login", ""))
                                 }
                             }
                             if (message is Message) {
                                 var flag = true
                                 for (command in commands) {
                                     if (command.getLabel() == message.string && someClient.token.token == message.token) {
-                                        someClient.sendMess(Message("answer", command.execute(message.any), someClient.token.token))
+                                        any = (Message(
+                                            "answer",
+                                            command.execute(message.any),
+                                            someClient.token.token
+                                        ))
                                         flag = false
                                         break
                                     }
                                 }
                                 if (flag) {
-                                    someClient.sendMess(Message("answer", "Command not found", someClient.token.token))
+                                    any = (Message("answer", "Command not found", someClient.token.token))
                                 }
                             }
+                            someClient.sendMess(any)
 
                         }
+
                         if (key.isWritable) {
                             //println("yes")
                             someClient!!.sendMessage()
@@ -176,6 +184,8 @@ private val logger: Logger)
                         logger.error(e)
                         //e.printStackTrace()
                         someClient?.disconnect()
+                    } catch (_: RuntimeException) {
+
                     }
                 }
             } catch (e: IOException) {
