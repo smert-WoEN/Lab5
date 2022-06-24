@@ -297,11 +297,11 @@ class Main(val socket: ClientSocket, var resourceBundle: ResourceBundle, val fra
             } else if (e.item.toString() == "Suomalainen") {
                 localeLang = Locale("fi", "FI")
             }
-//            } else if (e.item.toString() == "Dansk") {
-//                locale = Locale("dan", "DAN")
-//            } else if (e.item.toString() == "Deutsch") {
-//                locale = Locale("de", "DE")
-//            }
+//             } else if (e.item.toString() == "Français") {
+////                locale = Locale("fr", "FR")
+////            } else if (e.item.toString() == "español") {
+////                locale = Locale("es", "PR")
+////            }
             resourceBundle = ResourceBundle.getBundle("com.company.client.lang.Bundle", localeLang)
             changeLang()
         }
