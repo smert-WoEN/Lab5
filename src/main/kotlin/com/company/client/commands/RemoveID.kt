@@ -34,7 +34,7 @@ class RemoveID(private val socket: ClientSocket): Command {
         try {
             id = argument.toInt()
         } catch (e: NumberFormatException) {
-            throw IllegalArgumentException("It's not number!")
+            return "noNumber"
         }
         socket.sendMessage(Message(getLabel(), "$id ${socket.token.login}", socket.token.token))
         val answer = socket.readMessage() as Message

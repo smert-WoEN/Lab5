@@ -23,9 +23,9 @@ class RemoveID(private val labWorkComparator: LabWorkComparator): Command {
             try {
                 val args = any.split(" ", limit = 2)
                 if (labWorkComparator.removeLabWork(args[0].toInt(), args[1])) {
-                    "remove successful"
+                    "rOK"
                 } else {
-                    "can't remove"
+                    "rNO"
                 }
             } catch (e: IllegalArgumentException) {
                 e.message!!

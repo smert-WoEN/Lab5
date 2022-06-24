@@ -2,8 +2,9 @@ package com.company.server.ui
 
 import com.company.Message
 import com.company.SocketCloseException
-import com.company.client.Login
+import com.company.client.ui.Login
 import com.company.client.Register
+import com.company.collection.LabWork
 import com.company.collection.LabWorkBD
 import com.company.collection.LabWorkComparator
 import com.company.server.SomeClient
@@ -21,6 +22,7 @@ import java.nio.channels.spi.AbstractSelector
 import java.nio.channels.spi.SelectorProvider
 import java.util.*
 import java.util.concurrent.atomic.AtomicBoolean
+import kotlin.collections.HashSet
 
 class ServerRunnable(
     private val port: Int,
@@ -128,16 +130,23 @@ class ServerRunnable(
                         if (key.isReadable) {
                             val message = someClient!!.receiveMessage()
                             lateinit var any: Any
+                            if (message is com.company.Collection) {
+                                any = if (someClient.token.token == message.token) {
+                                    com.company.Collection(labWorkComparator.getCollections(), someClient.token.token)
+                                } else {
+                                    com.company.Collection(HashSet<LabWork>(), someClient.token.token)
+                                }
+                            }
                             if (message is Login) {
                                 try {
                                     if (labWorkBD.getUserPassword(message.login) == message.password) {
                                         someClient.token = Token(message.login, message.password, message.timeDate)
-                                        any = (Message("answer", "Login Ok", ""))
+                                        any = (Message("answer", "okLP", ""))
                                     } else {
-                                        any = (Message("answer", "Password or Login Error", ""))
+                                        any = (Message("answer", "errLP", ""))
                                     }
                                 } catch (e: PSQLException) {
-                                    any = (Message("answer", "Password or Login Error or register", ""))
+                                    any = (Message("answer", "errLP", ""))
                                 }
 
                             }
@@ -145,10 +154,10 @@ class ServerRunnable(
                                 try {
                                     if (message.password == message.password2) {
                                         labWorkBD.addUser(message.login, message.password)
-                                        any = (Message("answer", "RegisterComplete", ""))
+                                        any = (Message("answer", "RC", ""))
                                     }
                                 } catch (e: PSQLException) {
-                                    any = (Message("answer", "login use, change login", ""))
+                                    any = (Message("answer", "LE", ""))
                                 }
                             }
                             if (message is Message) {

@@ -2,6 +2,7 @@ package com.company.client.commands
 
 import com.company.Message
 import com.company.client.ClientSocket
+import com.company.client.ui.Login
 import com.company.server.Token
 import org.apache.commons.codec.digest.DigestUtils
 import java.util.Date
@@ -35,11 +36,13 @@ class Login(private val socket: ClientSocket): Command {
         return try {
             val args = argument.split(" ", limit = 2)
             val time = Date().time
-            socket.sendMessage(com.company.client.Login(
-                        args[0], DigestUtils.sha256Hex(args[1]), time))
+            socket.sendMessage(
+                Login(
+                        args[0], DigestUtils.sha256Hex(args[1]), time)
+            )
                 val answer = socket.readMessage() as Message
                 (if (answer.string == "answer") {
-                    if (answer.any as String == "Login Ok") {
+                    if (answer.any as String == "okLP") {
                         socket.token = Token(args[0], DigestUtils.sha256Hex(args[1]), time)
                         socket.initToken = true
                         answer.any

@@ -44,7 +44,7 @@ class Register(private val socket: ClientSocket): Command {
                 val answer = socket.readMessage() as Message
                 (if (answer.string == "answer") answer.any as String else "bad answer, idk add to collection.")
             } else {
-                "password error"
+                "errLP"
             }
         } catch (e: RuntimeException) {
             "incorrect"

@@ -1,0 +1,82 @@
+package com.company.client
+
+import com.company.client.GUI.Login
+import javax.swing.SwingUtilities
+
+fun main() {
+    SwingUtilities.invokeLater { Login() }
+//    val locale = Locale("ru", "RU")
+//    val resourceBundle = ResourceBundle.getBundle("com.company.client.lang.Bundle", locale)
+//    val frame = JFrame("Application")
+//    val jPanel = JPanel(BorderLayout())
+//    frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+//    frame.setSize(960, 720)
+//    val button = JButton("Русский")
+//    val button1 = JButton("Suomalainen")
+//    val button2 = JButton("click me2")
+//    val button3 = JButton("click me3")
+//    val button4 = JButton("click me4")
+//    val button5 = JButton("click me5")
+//    val panel = JPanel()
+//
+////    panel.layout = GridLayout(0, 1)
+////    panel.add(button)
+////    panel.add(button4)
+////    panel.add(button5)
+////    jPanel.add(BorderLayout.WEST, panel)
+////    jPanel.add(BorderLayout.NORTH, button1)
+////    jPanel.add(BorderLayout.CENTER, button2)
+//    val login = JPanel()
+//    val layout = SpringLayout()
+//    login.layout = layout
+//    val authTitle = JLabel(resourceBundle.getString("auth"))
+//    val loginTitle = (JLabel(resourceBundle.getString("login")))
+//    val textField = JTextField(20)
+//    val passwordTitle = JLabel(resourceBundle.getString("password"))
+//    val passwordField = JPasswordField(20)
+//    login.add(authTitle)
+//    login.add(loginTitle)
+//    login.add(textField)
+//    login.add(passwordTitle)
+//    login.add(passwordField)
+//    layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, authTitle, 0, SpringLayout.HORIZONTAL_CENTER, login)
+//    layout.putConstraint(SpringLayout.VERTICAL_CENTER, authTitle, -40, SpringLayout.VERTICAL_CENTER, login)
+//    layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, loginTitle, -180, SpringLayout.HORIZONTAL_CENTER, login)
+//    layout.putConstraint(SpringLayout.VERTICAL_CENTER, loginTitle, 0, SpringLayout.VERTICAL_CENTER, login)
+//    layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, textField, 0, SpringLayout.HORIZONTAL_CENTER, login)
+//    layout.putConstraint(SpringLayout.VERTICAL_CENTER, textField, 0, SpringLayout.VERTICAL_CENTER, login)
+//    layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, passwordTitle, -180, SpringLayout.HORIZONTAL_CENTER, login)
+//    layout.putConstraint(SpringLayout.VERTICAL_CENTER, passwordTitle, 40, SpringLayout.VERTICAL_CENTER, login)
+//    layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, passwordField, 0, SpringLayout.HORIZONTAL_CENTER, login)
+//    layout.putConstraint(SpringLayout.VERTICAL_CENTER, passwordField, 40, SpringLayout.VERTICAL_CENTER, login)
+//
+////    val boxLayout = BoxLayout(frame.contentPane, BoxLayout.Y_AXIS)
+////    frame.layout = boxLayout
+////    frame.contentPane.add(button)
+////    frame.contentPane.add(button1)
+////    frame.contentPane.add(BorderLayout.NORTH, button)
+////    frame.contentPane.add(BorderLayout.NORTH, button1)
+////    frame.contentPane.add(BorderLayout.CENTER, button2)
+////    frame.contentPane.add(BorderLayout.SOUTH, button3)
+////    frame.contentPane.add(BorderLayout.WEST, button4)
+////    jPanel.add(BorderLayout.NORTH, button)
+////    jPanel.add(BorderLayout.CENTER, button1)
+////    val jPanel1 = JPanel(BorderLayout())
+////    jPanel1.add(BorderLayout.CENTER, jPanel)
+////    jPanel1.add(BorderLayout.NORTH, button2)
+////    frame.add(jPanel1)
+//
+//    val language = JPanel()
+//    language.layout = BoxLayout(language, BoxLayout.X_AXIS)
+//    language.add(button)
+//    language.add(button1)
+//    language.add(button2)
+//    language.add(button3)
+//    jPanel.add(BorderLayout.CENTER, login)
+//    jPanel.add(BorderLayout.SOUTH, language)
+//    frame.add(jPanel)
+//    frame.isVisible = true
+//   println(resourceBundle.getString("reg"))
+//    Scanner(System.`in`).nextLine()
+//    button.text = resourceBundle.getString("reg")
+}
